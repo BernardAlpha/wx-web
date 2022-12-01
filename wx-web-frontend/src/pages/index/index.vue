@@ -1,27 +1,45 @@
 <template>
-  <view class="index">
-    <text>{{ msg }}</text>
-    <text>{{ msg }}</text>
-    <nut-button type="success">成功按钮</nut-button>
-    <nut-animate type='flicker' :loop='true'>
-      <nut-button type='primary'>flicker-擦亮</nut-button>
-    </nut-animate>
-    <nut-animate type='jump' :loop='true'>
-      <nut-button type='primary'>jump-跳跃</nut-button>
-    </nut-animate>
+  <view class="home weapp-home">
+    <view class="nav nav-home">
+      <view class="title">麦兰镇炸鸡店</view>
+    </view>
+
   </view>
 </template>
 
-<script>
-import { ref } from 'vue'
-import './index.less'
+<script setup>
+import { reactive } from "vue";
+import Taro from '@tarojs/taro'
+let here = reactive({});
+let systemInfo = Taro.getSystemInfoSync();
+let boundingInfo = Taro.getMenuButtonBoundingClientRect();
+let cheight = `${(systemInfo.statusBarHeight + boundingInfo.top) * 2}rpx`;
+console.log('cheight', cheight);
 
-export default {
-  setup() {
-    const msg = ref('Hello world')
-    return {
-      msg
-    }
+document.getElementsByTagName('body')[0].style.setProperty('--barHeight', cheight)
+
+console.log('systemInfo', systemInfo);
+console.log('boundingInfo', boundingInfo);
+</script>
+
+<style lang="scss">
+@import '/src/styles/variables.scss';
+.home {
+  height: 100%;
+  width: 100%;
+  background: $themeColor;
+}
+.nav {
+  .title {
+    padding-top: $barHeight;
   }
 }
-</script>
+.nav-home {
+  height: 650rpx;
+  width: 100%;
+  background: linear-gradient(rgba(250, 255, 185, 0.6)), url("#{$staticPrefix}/public/img/home-bar-bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+</style>

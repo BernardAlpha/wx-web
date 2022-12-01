@@ -1,0 +1,11 @@
+//   log     phy       1px=rpx     1rpx=px
+// 750rpx   320px       2.34        0.43        iPhone 5
+// 750rpx   375px       2.00        0.50        iPhone 6/7/8, iPhone X, iPhone 12/13 mini
+// 750rpx   414px       1.81        0.55        iPhone 6/7/8 Plus, iPhone XR, iPhone XS Max
+// 750rpx   390px       1.92        0.52        iPhone 12/13 (Pro)
+// 750rpx   428px       1.75        0.57        iPhone 12/13/14 Pro Max
+// 750rpx   834px       0.90        1.11        iPad Pro 10.5-inch
+// 750rpx   1024px      0.73        1.37        iPad Pro 12.9-inch
+$staticPrefix: "https://prod-8gbqt13c81eb5a4c-1314867305.tcloudbaseapp.com";
+$themeColor: #ffe4e4;
+$barHeight: var(--barHeight, 40rpx);
