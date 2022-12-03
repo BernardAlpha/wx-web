@@ -1,25 +1,23 @@
 <template>
   <view class="home weapp-home">
     <view class="nav nav-home">
-      <view class="title">麦兰镇炸鸡店</view>
+      <view class="nav-title" :id="`${here.pageName}-title`">麦兰镇炸鸡店</view>
     </view>
-
   </view>
 </template>
 
 <script setup>
-import { reactive } from "vue";
+import { onMounted, reactive } from "vue";
 import Taro from '@tarojs/taro'
-let here = reactive({});
+let here = reactive({
+  pageName: 'home'
+});
 let systemInfo = Taro.getSystemInfoSync();
-let boundingInfo = Taro.getMenuButtonBoundingClientRect();
-let cheight = `${(systemInfo.statusBarHeight + boundingInfo.top) * 2}rpx`;
-console.log('cheight', cheight);
-
-document.getElementsByTagName('body')[0].style.setProperty('--barHeight', cheight)
-
-console.log('systemInfo', systemInfo);
-console.log('boundingInfo', boundingInfo);
+let capsuleInfo = Taro.getMenuButtonBoundingClientRect();
+onMounted(() => {
+  document.getElementById(`${here.pageName}-title`).style.setProperty('--titleMarginTop', `${capsuleInfo.top * 2 / (systemInfo.windowWidth / 375)}rpx`);
+  document.getElementById(`${here.pageName}-title`).style.setProperty('--capsuleHeight', `${capsuleInfo.height * 2 / (systemInfo.windowWidth / 375)}rpx`);
+});
 </script>
 
 <style lang="scss">
@@ -29,17 +27,21 @@ console.log('boundingInfo', boundingInfo);
   width: 100%;
   background: $themeColor;
 }
-.nav {
-  .title {
-    padding-top: $barHeight;
-  }
+.nav-title {
+  padding-top: $titleMarginTop;
+  // background: coral;
+  height: $capsuleHeight;
+  line-height: $capsuleHeight;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: calc($capsuleHeight / 1.5);
+
 }
 .nav-home {
-  height: 650rpx;
+  height: 100%;
   width: 100%;
-  background: linear-gradient(rgba(250, 255, 185, 0.6)), url("#{$staticPrefix}/public/img/home-bar-bg.jpg");
-  background-size: cover;
+  background-image: linear-gradient(0deg, rgba(58, 18, 95, 0.9), rgb(255, 255, 255, 0)), url("#{$staticPrefix}/public/img/home-bar-bg4.jpg");
+  background-size: contain;
   background-repeat: no-repeat;
 }
-
 </style>

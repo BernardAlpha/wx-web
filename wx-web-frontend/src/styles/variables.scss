@@ -8,4 +8,5 @@
 // 750rpx   1024px      0.73        1.37        iPad Pro 12.9-inch
 $staticPrefix: "https://prod-8gbqt13c81eb5a4c-1314867305.tcloudbaseapp.com";
 $themeColor: #ffe4e4;
-$barHeight: var(--barHeight, 40rpx);
+$titleMarginTop: var(--titleMarginTop, 40rpx);
+$capsuleHeight: var(--capsuleHeight, 64rpx);
