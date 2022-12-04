@@ -3,24 +3,27 @@
     <view class="top-back"></view>
     <view class="nav-title" :id="`${here.pageName}-title`">麦兰镇炸鸡店</view>
     <view class="content">
-      <view class="exhibition-area exhibition-area-top">
-      </view>
-      <view class="exhibition-area">
-        <view class="timing-area">
-          <view class="timing-text">我们在一起</view>
-          <view class="timekeeper">
-            <view class="t-day">
-              <text>已经</text><text class="number">{{ here.timekeeper.day }}</text><text>天啦</text><text v-if="here.timekeeper.day > 0"></text>
-            </view>
-            <view class="t-others">
-              <text class="number">{{ here.timekeeper.hour }}</text><text>小时</text><text v-if="here.timekeeper.hour > 0"></text>
-              <text class="number">{{ here.timekeeper.min }}</text><text>分钟</text><text v-if="here.timekeeper.min > 0"></text>
-              <text class="number">{{ here.timekeeper.sec }}</text><text>秒</text><text v-if="here.timekeeper.sec > 0"></text>
-            </view>
+      <view class="module-box module-invisible" id="module-invisible"></view>
+      <view class="module-box module-timing">
+        <view class="timing-text">我们在一起</view>
+        <view class="timekeeper">
+          <view class="t-day">
+            <text>已经</text><text class="number">{{ here.timekeeper.day }}</text><text>天啦</text><text v-if="here.timekeeper.day > 0"></text>
+          </view>
+          <view class="t-others">
+            <text class="number">{{ here.timekeeper.hour }}</text><text>小时</text><text v-if="here.timekeeper.hour > 0"></text>
+            <text class="number">{{ here.timekeeper.min }}</text><text>分钟</text><text v-if="here.timekeeper.min > 0"></text>
+            <text class="number">{{ here.timekeeper.sec }}</text><text>秒</text><text v-if="here.timekeeper.sec > 0"></text>
           </view>
         </view>
       </view>
-      <view class="function-area">
+      <view class="module-box module-notice">
+        <view class="module-title">重要通知</view>
+      </view>
+      <view class="module-box module-timetable">
+        <view class="module-title">今日课表</view>
+      </view>
+      <view class="module-box module-function">
         <view class="function-box">
           <image :src="`${website.staticPrefix}/public/img/function-timetable2.png`"></image>
           <view class="function-desc">Timetable</view>
@@ -50,8 +53,12 @@ let capsuleInfo = Taro.getMenuButtonBoundingClientRect();  // 胶囊信息
 setInterval(caculateTimeeeper, 1000);
 console.log(here.timekeeper);
 onMounted(() => {
-  document.getElementById(`${here.pageName}-title`).style.setProperty('--titleMarginTop', `${capsuleInfo.top * 2 / (systemInfo.windowWidth / 375)}rpx`);
-  document.getElementById(`${here.pageName}-title`).style.setProperty('--capsuleHeight', `${capsuleInfo.height * 2 / (systemInfo.windowWidth / 375)}rpx`);
+  let titleMarginTop = `${capsuleInfo.top * 2 / (systemInfo.windowWidth / 375)}rpx`;
+  let capsuleHeight = `${capsuleInfo.height * 2 / (systemInfo.windowWidth / 375)}rpx`;
+  document.getElementById(`${here.pageName}-title`).style.setProperty('--titleMarginTop', titleMarginTop);
+  document.getElementById(`${here.pageName}-title`).style.setProperty('--capsuleHeight', capsuleHeight);
+  document.getElementById(`module-invisible`).style.setProperty('--titleMarginTop', titleMarginTop);
+  document.getElementById(`module-invisible`).style.setProperty('--capsuleHeight', capsuleHeight);
 });
 
 function caculateTimeeeper() {
@@ -79,7 +86,8 @@ function caculateTimeeeper() {
   position: absolute;
   height: 100%;
   width: 100%;
-  background: $themeColor;
+  background: $themePink;
+  background: linear-gradient(0deg, $themePink, rgba(255, 255, 255, 0));
   // background-image: linear-gradient(0deg, rgba(58, 18, 95, 0.9), rgb(255, 255, 255, 0)), url("#{$staticPrefix}/public/img/home-bar-bg4.jpg");
   background-size: contain;
   background-repeat: no-repeat;
@@ -87,10 +95,8 @@ function caculateTimeeeper() {
   .top-back {
     width: 100%;
     height: 360rpx;
-    background: #54f7a6;
+    background: linear-gradient(180deg, $themePink, rgba(255, 255, 255, 0));
     position: fixed;
-    border-bottom-left-radius: 80rpx;
-    border-bottom-right-radius: 80rpx;
   }
   .nav-title {
     position: fixed;
@@ -102,34 +108,39 @@ function caculateTimeeeper() {
     color: #f7547d;
     text-align: center;
     font-size: calc($capsuleHeight / 1.1);
-    font-family: 'MissU';
   }
   .content {
     position: absolute;
     width: -webkit-fill-available;
     // background: gold;
     margin: 0rpx 30rpx 30rpx 30rpx;
-    .exhibition-area {
+    .module-box {
       background: #ffffff;
-      margin-top: 40rpx;
+      margin-top: 30rpx;
       height: 260rpx;
       width: 100%;
       border-radius: 20rpx;
+      .module-title {
+        padding: 20rpx;
+      }
     }
-    .exhibition-area-top {
+    .module-invisible {
       margin-top: 200rpx;
+      margin-top: calc($titleMarginTop + $capsuleHeight + 30rpx);
+      background: transparent;
+      min-height: 0rpx;
+      height: 0rpx;
     }
-    .timing-area {
+    .module-timing {
       height: auto;
       text-align: center;
       color: #ff8585;
-      font-family: 'MissU';
       font-size: 46rpx;
       .timing-text {
-        padding-top: 20rpx;
+        padding-top: 10rpx;
       }
       .timekeeper {
-        margin-top: 0rpx;
+        padding: 10rpx;
         .t-day {
           font-size: 46rpx;
           .number {
@@ -147,12 +158,11 @@ function caculateTimeeeper() {
         }
       }
     }
-    .function-area {
-      // width: 100%;
-      margin: 80rpx 20rpx 20rpx 20rpx;
-      // min-height: 400rpx;
-      // height: 1600rpx;
-      background: rgba(255, 255, 255, 0.6);
+    .module-notice {
+      height: 80rpx;
+    }
+    .module-function {
+      height: auto;
       border-radius: 20rpx;
       padding: 20rpx 0;
       .function-box {
@@ -170,7 +180,6 @@ function caculateTimeeeper() {
         }
         .function-desc {
           font-size: 30rpx;
-          font-family: MissU;
         }
       }
     }

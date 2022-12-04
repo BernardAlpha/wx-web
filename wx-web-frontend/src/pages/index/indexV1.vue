@@ -93,7 +93,7 @@ function caculateTimeeeper() {
 .home {
   height: 100%;
   width: 100%;
-  background: $themeColor;
+  background: $themePink;
   background-image: linear-gradient(0deg, rgba(58, 18, 95, 0.9), rgb(255, 255, 255, 0)), url("#{$staticPrefix}/public/img/home-bar-bg4.jpg");
   background-size: contain;
   background-repeat: no-repeat;
