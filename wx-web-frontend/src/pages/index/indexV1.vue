@@ -1,26 +1,41 @@
 <template>
   <view class="home weapp-home">
-    <view class="top-back"></view>
-    <view class="nav-title" :id="`${here.pageName}-title`">麦兰镇炸鸡店</view>
+    <view class="nav-title" :id="`${here.pageName}-title`">Melon Pollos</view>
     <view class="content">
-      <view class="exhibition-area exhibition-area-top">
-      </view>
-      <view class="exhibition-area">
-        <view class="timing-area">
-          <view class="timing-text">我们在一起</view>
-          <view class="timekeeper">
-            <view class="t-day">
-              <text>已经</text><text class="number">{{ here.timekeeper.day }}</text><text>天啦</text><text v-if="here.timekeeper.day > 0"></text>
-            </view>
-            <view class="t-others">
-              <text class="number">{{ here.timekeeper.hour }}</text><text>小时</text><text v-if="here.timekeeper.hour > 0"></text>
-              <text class="number">{{ here.timekeeper.min }}</text><text>分钟</text><text v-if="here.timekeeper.min > 0"></text>
-              <text class="number">{{ here.timekeeper.sec }}</text><text>秒</text><text v-if="here.timekeeper.sec > 0"></text>
-            </view>
+      <view class="timing-area">
+        <view class="timing-text">has been established</view>
+        <view class="timekeeper">
+          <view class="t-day">
+            <text> for </text><text class="number">{{ here.timekeeper.day }}</text><text> day</text><text v-if="here.timekeeper.day > 0">s</text>
+          </view>
+          <view class="t-others">
+            <text class="number">{{ here.timekeeper.hour }}</text><text>hour</text><text v-if="here.timekeeper.hour > 0">s</text>
+            <text class="number">{{ here.timekeeper.min }}</text><text>min</text><text v-if="here.timekeeper.min > 0">s</text>
+            <text class="number">{{ here.timekeeper.sec }}</text><text>sec</text><text v-if="here.timekeeper.sec > 0">s</text>
           </view>
         </view>
       </view>
       <view class="function-area">
+        <view class="function-box">
+          <image :src="`${website.staticPrefix}/public/img/function-timetable2.png`"></image>
+          <view class="function-desc">Timetable</view>
+        </view>
+        <view class="function-box">
+          <image :src="`${website.staticPrefix}/public/img/function-timetable2.png`"></image>
+          <view class="function-desc">Timetable</view>
+        </view>
+        <view class="function-box">
+          <image :src="`${website.staticPrefix}/public/img/function-timetable2.png`"></image>
+          <view class="function-desc">Timetable</view>
+        </view>
+        <view class="function-box">
+          <image :src="`${website.staticPrefix}/public/img/function-timetable2.png`"></image>
+          <view class="function-desc">Timetable</view>
+        </view>
+        <view class="function-box">
+          <image :src="`${website.staticPrefix}/public/img/function-timetable2.png`"></image>
+          <view class="function-desc">Timetable</view>
+        </view>
         <view class="function-box">
           <image :src="`${website.staticPrefix}/public/img/function-timetable2.png`"></image>
           <view class="function-desc">Timetable</view>
@@ -76,27 +91,15 @@ function caculateTimeeeper() {
 <style lang="scss">
 @import '/src/styles/variables.scss';
 .home {
-  position: absolute;
   height: 100%;
   width: 100%;
   background: $themeColor;
-  // background-image: linear-gradient(0deg, rgba(58, 18, 95, 0.9), rgb(255, 255, 255, 0)), url("#{$staticPrefix}/public/img/home-bar-bg4.jpg");
+  background-image: linear-gradient(0deg, rgba(58, 18, 95, 0.9), rgb(255, 255, 255, 0)), url("#{$staticPrefix}/public/img/home-bar-bg4.jpg");
   background-size: contain;
   background-repeat: no-repeat;
-  z-index: -2;
-  .top-back {
-    width: 100%;
-    height: 360rpx;
-    background: #54f7a6;
-    position: fixed;
-    border-bottom-left-radius: 80rpx;
-    border-bottom-right-radius: 80rpx;
-  }
   .nav-title {
-    position: fixed;
     padding-top: $titleMarginTop;
     // background: coral;
-    width: 100%;
     height: $capsuleHeight;
     line-height: $capsuleHeight;
     color: #f7547d;
@@ -105,31 +108,19 @@ function caculateTimeeeper() {
     font-family: 'MissU';
   }
   .content {
-    position: absolute;
-    width: -webkit-fill-available;
-    // background: gold;
-    margin: 0rpx 30rpx 30rpx 30rpx;
-    .exhibition-area {
-      background: #ffffff;
-      margin-top: 40rpx;
-      height: 260rpx;
-      width: 100%;
-      border-radius: 20rpx;
-    }
-    .exhibition-area-top {
-      margin-top: 200rpx;
-    }
     .timing-area {
+      // background: rgba(255, 220, 25, 0.6);
+      // border-radius: 20rpx;
+      margin: 30rpx 40rpx 20rpx 40rpx;
+      // width: 600rpx;
+      // background: coral;
       height: auto;
       text-align: center;
       color: #ff8585;
       font-family: 'MissU';
       font-size: 46rpx;
-      .timing-text {
-        padding-top: 20rpx;
-      }
       .timekeeper {
-        margin-top: 0rpx;
+        margin-top: 30rpx;
         .t-day {
           font-size: 46rpx;
           .number {
@@ -139,7 +130,7 @@ function caculateTimeeeper() {
           }
         }
         .t-others {
-          margin-top: 0rpx;
+          margin-top: 30rpx;
           font-size: 30rpx;
           .number {
             font-size: 38rpx;
