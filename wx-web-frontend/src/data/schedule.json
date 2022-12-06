@@ -1,0 +1,23 @@
+[
+  {
+    "day": "Monday",
+    "course": [
+      {
+        "lessonNo": 2,
+        "className": "4"
+      },
+      {
+        "lessonNo": 8,
+        "className": "4"
+      },
+      {
+        "lessonNo": 9,
+        "className": "3"
+      },
+      {
+        "lessonNo": 15,
+        "className": "4"
+      }
+    ]
+  }
+]
