@@ -22,6 +22,7 @@
       </view>
       <view class="module-box module-timetable">
         <view class="module-title">今日课表</view>
+        <schedule-today></schedule-today>
       </view>
       <view class="module-box module-function">
         <view class="function-box">
@@ -38,6 +39,7 @@ import { onMounted, reactive } from "vue";
 import Taro from '@tarojs/taro'
 import daysMatter from '/src/data/daysMatter.json'
 import website from '/src/config/website'
+import scheduleToday from './scheduleToday.vue'
 let here = reactive({
   pageName: 'home',
   timekeeper: {
