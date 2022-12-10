@@ -19,5 +19,111 @@
         "className": "4"
       }
     ]
+  },
+  {
+    "day": "Tuesday",
+    "course": [
+      {
+        "lessonNo": 6,
+        "className": "3"
+      },
+      {
+        "lessonNo": 9,
+        "className": "4"
+      },
+      {
+        "lessonNo": 15,
+        "className": "3"
+      }
+    ]
+  },
+  {
+    "day": "Wednesday",
+    "course": [
+      {
+        "lessonNo": 2,
+        "className": "3"
+      },
+      {
+        "lessonNo": 19,
+        "className": "4"
+      },
+      {
+        "lessonNo": 20,
+        "className": "3"
+      }
+    ]
+  },
+  {
+    "day": "Thursday",
+    "course": [
+      {
+        "lessonNo": 6,
+        "className": "4"
+      },
+      {
+        "lessonNo": 7,
+        "className": "3"
+      },
+      {
+        "lessonNo": 9,
+        "className": "4"
+      },
+      {
+        "lessonNo": 21,
+        "className": "3"
+      }
+    ]
+  },
+  {
+    "day": "Friday",
+    "course": [
+      {
+        "lessonNo": 2,
+        "className": "4"
+      },
+      {
+        "lessonNo": 13,
+        "className": "3"
+      }
+    ]
+  },
+  {
+    "day": "Saturday",
+    "course": [
+      {
+        "lessonNo": 2,
+        "className": "3"
+      },
+      {
+        "lessonNo": 6,
+        "className": "4"
+      },
+      {
+        "lessonNo": 13,
+        "className": "4"
+      },
+      {
+        "lessonNo": 14,
+        "className": "3"
+      }
+    ]
+  },
+  {
+    "day": "Sunday",
+    "course": [
+      {
+        "lessonNo": 6,
+        "className": "3"
+      },
+      {
+        "lessonNo": 15,
+        "className": "3"
+      },
+      {
+        "lessonNo": 19,
+        "className": "4"
+      }
+    ]
   }
 ]
