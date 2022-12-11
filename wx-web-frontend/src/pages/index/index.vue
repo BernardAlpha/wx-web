@@ -18,16 +18,19 @@
         </view>
       </view>
       <view class="module-box module-notice">
-        <view class="module-title">重要通知</view>
+        <view class="module-title">
+          营业通知
+          <view class="notice-content">{{ here.notice }}</view>
+        </view>
       </view>
       <view class="module-box module-timetable">
-        <view class="module-title">今日课表</view>
-        <schedule-today></schedule-today>
+        <view class="module-title">今日特色</view>
+        <schedule-today :timeNow="here.timekeeper" @emitNotice="setNotice"></schedule-today>
       </view>
       <view class="module-box module-function">
         <view class="function-box">
           <image :src="`${website.staticPrefix}/public/img/function-timetable2.png`"></image>
-          <view class="function-desc">Timetable</view>
+          <view class="function-desc">菜单</view>
         </view>
       </view>
     </view>
@@ -48,7 +51,8 @@ let here = reactive({
     min: 0,
     sec: 0,
     ms: 0
-  }
+  },
+  notice: ''
 });
 let systemInfo = Taro.getSystemInfoSync();  // 系统信息
 let capsuleInfo = Taro.getMenuButtonBoundingClientRect();  // 胶囊信息
@@ -79,6 +83,9 @@ function caculateTimeeeper() {
   let day = difference;
   here.timekeeper = { ...here.timekeeper, day, hour, min, sec, ms }
   // console.log(`${day}d${hour}h${min}m${sec}s${ms}ms`);
+}
+function setNotice(notice) {
+  here.notice = notice;
 }
 </script>
 
@@ -119,7 +126,7 @@ function caculateTimeeeper() {
     .module-box {
       background: #ffffff;
       margin-top: 30rpx;
-      height: 260rpx;
+      min-height: 260rpx;
       width: 100%;
       border-radius: 20rpx;
       .module-title {
@@ -161,7 +168,16 @@ function caculateTimeeeper() {
       }
     }
     .module-notice {
-      height: 80rpx;
+      min-height: 80rpx;
+      .notice-content {
+        margin-top: 10rpx;
+        font-size: 50rpx;
+        color: #f7547d;
+        text-align: center;
+      }
+    }
+    .module-timetable {
+      min-height: 384rpx;
     }
     .module-function {
       height: auto;

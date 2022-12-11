@@ -3,19 +3,19 @@
     "day": "Monday",
     "course": [
       {
-        "lessonNo": 2,
+        "timeIndex": 2,
         "className": "4"
       },
       {
-        "lessonNo": 8,
+        "timeIndex": 8,
         "className": "4"
       },
       {
-        "lessonNo": 9,
+        "timeIndex": 9,
         "className": "3"
       },
       {
-        "lessonNo": 15,
+        "timeIndex": 15,
         "className": "4"
       }
     ]
@@ -24,15 +24,15 @@
     "day": "Tuesday",
     "course": [
       {
-        "lessonNo": 6,
+        "timeIndex": 6,
         "className": "3"
       },
       {
-        "lessonNo": 9,
+        "timeIndex": 9,
         "className": "4"
       },
       {
-        "lessonNo": 15,
+        "timeIndex": 15,
         "className": "3"
       }
     ]
@@ -41,15 +41,15 @@
     "day": "Wednesday",
     "course": [
       {
-        "lessonNo": 2,
+        "timeIndex": 2,
         "className": "3"
       },
       {
-        "lessonNo": 19,
+        "timeIndex": 19,
         "className": "4"
       },
       {
-        "lessonNo": 20,
+        "timeIndex": 20,
         "className": "3"
       }
     ]
@@ -58,19 +58,19 @@
     "day": "Thursday",
     "course": [
       {
-        "lessonNo": 6,
+        "timeIndex": 6,
         "className": "4"
       },
       {
-        "lessonNo": 7,
+        "timeIndex": 7,
         "className": "3"
       },
       {
-        "lessonNo": 9,
+        "timeIndex": 9,
         "className": "4"
       },
       {
-        "lessonNo": 21,
+        "timeIndex": 21,
         "className": "3"
       }
     ]
@@ -79,11 +79,11 @@
     "day": "Friday",
     "course": [
       {
-        "lessonNo": 2,
+        "timeIndex": 2,
         "className": "4"
       },
       {
-        "lessonNo": 13,
+        "timeIndex": 13,
         "className": "3"
       }
     ]
@@ -92,19 +92,19 @@
     "day": "Saturday",
     "course": [
       {
-        "lessonNo": 2,
+        "timeIndex": 2,
         "className": "3"
       },
       {
-        "lessonNo": 6,
+        "timeIndex": 6,
         "className": "4"
       },
       {
-        "lessonNo": 13,
+        "timeIndex": 13,
         "className": "4"
       },
       {
-        "lessonNo": 14,
+        "timeIndex": 14,
         "className": "3"
       }
     ]
@@ -113,15 +113,15 @@
     "day": "Sunday",
     "course": [
       {
-        "lessonNo": 6,
+        "timeIndex": 6,
         "className": "3"
       },
       {
-        "lessonNo": 15,
+        "timeIndex": 15,
         "className": "3"
       },
       {
-        "lessonNo": 19,
+        "timeIndex": 19,
         "className": "4"
       }
     ]
