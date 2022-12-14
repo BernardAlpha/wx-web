@@ -58,11 +58,11 @@
     "day": "Thursday",
     "course": [
       {
-        "timeIndex": 6,
+        "timeIndex": 5,
         "className": "4"
       },
       {
-        "timeIndex": 7,
+        "timeIndex": 6,
         "className": "3"
       },
       {

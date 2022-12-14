@@ -124,7 +124,7 @@ function setNotice(notice) {
     // background: gold;
     margin: 0rpx 30rpx 30rpx 30rpx;
     .module-box {
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.4);
       margin-top: 30rpx;
       min-height: 260rpx;
       width: 100%;

@@ -7,7 +7,9 @@
 // 750rpx   834px       0.90        1.11        iPad Pro 10.5-inch
 // 750rpx   1024px      0.73        1.37        iPad Pro 12.9-inch
 
-$staticPrefix: "https://gitlab.com/BernardAlpha/static-resource/-/raw/main/";  // GitLab
+$staticPrefix: "https://prod-8gbqt13c81eb5a4c-1314867305.tcloudbaseapp.com"; // TencentCloud
+// $staticPrefix: "https://gitlab.com/BernardAlpha/static-resource/-/raw/main/";  // GitLab
+// $staticPrefix: "https://gitee.com/BernardAlpha/static-resouce/raw/master";  // Gitee
 $themePink: rgb(255, 139, 203);
 $titleMarginTop: var(--titleMarginTop, 40rpx);
 $capsuleHeight: var(--capsuleHeight, 64rpx);

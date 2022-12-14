@@ -44,9 +44,8 @@ here.timeAxisFloatWidth = computed(() => {
   return (props.timeNow.hour * 3600 + props.timeNow.min * 60 + props.timeNow.sec) / 864;
 });
 watch(() => props.timeNow.sec, (newVal) => {
-  // console.log('props.timeNow.sec',props.timeNow.sec);
   for(let i in here.scheduleToday) {
-    let timeCounting = (Number(here.scheduleToday[i].start.substr(0,2)) * 3600 + Number(here.scheduleToday[i].start.substr(3,2)) * 60) - (props.timeNow.hour * 3600 + props.timeNow.min * 60 + props.timeNow.sec);
+    let timeCounting = here.scheduleToday[i].startSec - (props.timeNow.hour * 3600 + props.timeNow.min * 60 + props.timeNow.sec);
     if(timeCounting > 0) {
       let hour = parseInt(timeCounting / 3600);
       let min = parseInt((timeCounting - hour * 3600) / 60);
@@ -64,10 +63,10 @@ for(let i in here.scheduleToday) {
   here.scheduleToday[i].desc = timeTable[here.scheduleToday[i].timeIndex].desc;
   here.scheduleToday[i].start = timeTable[here.scheduleToday[i].timeIndex].start;
   here.scheduleToday[i].end = timeTable[here.scheduleToday[i].timeIndex].end;
-  here.scheduleToday[i].startNo = Number(timeTable[here.scheduleToday[i].timeIndex].start.replace(':', ''));
-  here.scheduleToday[i].endNo = Number(timeTable[here.scheduleToday[i].timeIndex].end.replace(':', ''));
-  here.scheduleToday[i].width = (here.scheduleToday[i].endNo - here.scheduleToday[i].startNo) / 24;
-  here.scheduleToday[i].marginLeft = (here.scheduleToday[i].startNo - (Number(i) === 0 ? 0 : here.scheduleToday[Number(i)-1].endNo)) / 24;
+  here.scheduleToday[i].startSec = Number(here.scheduleToday[i].start.substr(0,2)) * 3600 + Number(here.scheduleToday[i].start.substr(3,2)) * 60;
+  here.scheduleToday[i].endSec = Number(here.scheduleToday[i].end.substr(0,2)) * 3600 + Number(here.scheduleToday[i].end.substr(3,2)) * 60;
+  here.scheduleToday[i].width = (here.scheduleToday[i].endSec - here.scheduleToday[i].startSec) / 864;
+  here.scheduleToday[i].marginLeft = (here.scheduleToday[i].startSec - (Number(i) === 0 ? 0 : here.scheduleToday[Number(i)-1].endSec)) / 864;
   here.scheduleToday[i].style = `width:${here.scheduleToday[i].width}%;margin-left:${here.scheduleToday[i].marginLeft}%;`;
 }
 console.log('here.scheduleToday', here.scheduleToday);
