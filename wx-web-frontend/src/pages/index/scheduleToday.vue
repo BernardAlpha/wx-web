@@ -10,7 +10,7 @@
         <view class="lesson-desc lesson-desc-bottom">{{ `${item.start} - ${item.end}` }}</view>
       </view>
     </view>
-    <view class="time-axis time-axis-float" :style="`width:${here.timeAxisFloatWidth}%`"></view>
+    <view v-show="props.timeAxisShow" class="time-axis time-axis-float" :style="`width:${here.timeAxisFloatWidth}%`"></view>
 
     <view
       v-for="clock in 24" :key="clock"
@@ -27,7 +27,15 @@ import timeTable from '/src/data/timeTable.json'
 import schedule from '/src/data/schedule.json'
 import website from '/src/config/website'
 const props = defineProps({
-    timeNow: Object
+    timeNow: Object,
+    timeAxisShow: {
+      type: Boolean,
+      default: false
+    },
+    weekDay: {
+      type: Number,
+      default: 0
+    }
 })
 const emit = defineEmits(['emitNotice'])
 
@@ -58,7 +66,7 @@ watch(() => props.timeNow.sec, (newVal) => {
   emitNotice();
 });
 
-here.scheduleToday = reactive(JSON.parse(JSON.stringify(schedule[(new Date().getDay() + 6) % 7].course)))
+here.scheduleToday = reactive(JSON.parse(JSON.stringify(schedule[props.weekDay ? (props.weekDay - 1) : ((new Date().getDay() + 6) % 7)].course)))
 for(let i in here.scheduleToday) {
   here.scheduleToday[i].desc = timeTable[here.scheduleToday[i].timeIndex].desc;
   here.scheduleToday[i].start = timeTable[here.scheduleToday[i].timeIndex].start;

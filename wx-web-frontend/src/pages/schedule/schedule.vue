@@ -1,39 +1,18 @@
 <template>
   <view class="home weapp-home">
-    <view class="top-back"></view>
-    <view class="nav-title" :id="`${here.pageName}-title`">麦兰镇炸鸡店</view>
-    <view class="content">
-      <view class="module-box module-invisible" id="module-invisible"></view>
-      <view class="module-box module-timing">
-        <view class="timing-text">我们在一起</view>
-        <view class="timekeeper">
-          <view class="t-day">
-            <text>已经</text><text class="number">{{ here.timekeeper.day }}</text><text>天啦</text><text v-if="here.timekeeper.day > 0"></text>
-          </view>
-          <view class="t-others">
-            <text class="number">{{ here.timekeeper.hour }}</text><text>小时</text><text v-if="here.timekeeper.hour > 0"></text>
-            <text class="number">{{ here.timekeeper.min }}</text><text>分钟</text><text v-if="here.timekeeper.min > 0"></text>
-            <text class="number">{{ here.timekeeper.sec }}</text><text>秒</text><text v-if="here.timekeeper.sec > 0"></text>
-          </view>
+      <view class="top-back"></view>
+      <view class="content">
+        <view class="module-box module-invisible" id="module-invisible"></view>
+        <view v-for="(item, index) in here.weekList" class="module-box module-timetable"
+          :style="new Date().getDay() === index + 1 ? 'background: linear-gradient(150deg,#4a90f7,hsla(0,0%,100%,0));' : ''">
+          <view class="module-title weekday-name">{{ item.name + (new Date().getDay() === index + 1 ? '(Today)' : '') }}</view>
+          <schedule-today :timeAxisShow="new Date().getDay() === index + 1" :weekDay="index + 1" :timeNow="caculateTimeeeper()" @emitNotice="setNotice"></schedule-today>
         </view>
       </view>
-      <view class="module-box module-notice">
-        <view class="module-title">
-          营业通知
-          <view class="notice-content">{{ here.notice }}</view>
-        </view>
+      <view class="nav-title" :id="`${here.pageName}-title`">
+        <view class="back-arrow" v-on:tap="Taro.navigateBack({delta: 1})">{{ '<' }}</view>
+        <view>菜单</view>
       </view>
-      <view class="module-box module-timetable">
-        <view class="module-title">今日特色</view>
-        <schedule-today :timeAxisShow="true" :timeNow="here.timekeeper" @emitNotice="setNotice"></schedule-today>
-      </view>
-      <view class="module-box module-menu">
-        <view class="menu-box" v-for="(item, index) in here.menuList" v-on:tap="menuItemClick(item.url)">
-          <image :src="`${website.staticPrefix}/public/img/${item.icon}`"></image>
-          <view class="menu-desc">{{ item.name }}</view>
-        </view>
-      </view>
-    </view>
   </view>
 </template>
 
@@ -42,7 +21,8 @@ import { onMounted, reactive } from "vue";
 import Taro from '@tarojs/taro'
 import daysMatter from '/src/data/daysMatter.json'
 import website from '/src/config/website'
-import scheduleToday from './scheduleToday.vue'
+import scheduleToday from '../index/scheduleToday.vue'
+import { stringify } from "qs";
 let here = reactive({
   pageName: 'home',
   timekeeper: {
@@ -53,14 +33,28 @@ let here = reactive({
     ms: 0
   },
   notice: '',
-  menuList: [
-    {name: '菜单', icon: 'function-timetable3.png', url: '/pages/schedule/schedule'}
+  weekList: [
+    {name: 'Monday'},
+    {name: 'Tuesday'},
+    {name: 'Wednesday'},
+    {name: 'Thursday'},
+    {name: 'Friday'},
+    {name: 'Saturday'},
+    {name: 'Sunday'}
   ]
 });
+
 let systemInfo = Taro.getSystemInfoSync();  // 系统信息
 let capsuleInfo = Taro.getMenuButtonBoundingClientRect();  // 胶囊信息
-setInterval(caculateTimeeeper, 1000);
-console.log(here.timekeeper);
+ 
+// here.timekeeper = caculateTimeeeper();
+// setInterval(() =>{
+//   const x = stringify(here.weekList );
+//   console.log('x',x);
+//   here.weekList = JSON.parse(x);
+//   console.log(here.timekeeper);
+// }, 1000);
+
 onMounted(() => {
   let titleMarginTop = `${capsuleInfo.top * 2 / (systemInfo.windowWidth / 375)}rpx`;
   let capsuleHeight = `${capsuleInfo.height * 2 / (systemInfo.windowWidth / 375)}rpx`;
@@ -70,11 +64,9 @@ onMounted(() => {
   document.getElementById(`module-invisible`).style.setProperty('--capsuleHeight', capsuleHeight);
 });
 
-function caculateTimeeeper() {
-  // console.log('Date.now()', Date.now());
-  // console.log('Date.now()', Date.parse(daysMatter.beTogether));
+
+function caculateTimeeeper(weekday) {
   let difference = Date.now() - Date.parse(daysMatter.beTogether);  // ms
-  // console.log('difference',difference);
   let ms = difference % 1000;
   difference = (difference - ms) / 1000;  // sec
   let sec = difference % 60;
@@ -84,19 +76,11 @@ function caculateTimeeeper() {
   let hour = difference % 24;
   difference = (difference - hour) / 24;
   let day = difference;
-  here.timekeeper = { ...here.timekeeper, day, hour, min, sec, ms }
-  // console.log(`${day}d${hour}h${min}m${sec}s${ms}ms`);
+  console.log(`${day}d${hour}h${min}m${sec}s${ms}ms`);
+  return { day, hour, min, sec, ms };
 }
-
 function setNotice(notice) {
   here.notice = notice;
-}
-
-const menuItemClick = (url) => {
-  console.log('url', url);
-  Taro.navigateTo({
-    url: url
-  })
 }
 </script>
 
@@ -104,18 +88,17 @@ const menuItemClick = (url) => {
 @import '/src/styles/variables.scss';
 .home {
   // position: absolute;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
   background: $themePink;
-  background: linear-gradient(0deg, $themePink, rgba(255, 255, 255, 0));
-  // background-image: linear-gradient(0deg, rgba(58, 18, 95, 0.9), rgb(255, 255, 255, 0)), url("#{$staticPrefix}/public/img/home-bar-bg4.jpg");
+  // background: linear-gradient(0deg, $themePink, rgba(255, 255, 255, 0));
+  background: none;
   background-size: contain;
   background-repeat: no-repeat;
   z-index: -2;
   .top-back {
     width: 100%;
     height: 360rpx;
-    background: linear-gradient(180deg, $themePink, rgba(255, 255, 255, 0));
     position: fixed;
   }
   .nav-title {
@@ -128,12 +111,18 @@ const menuItemClick = (url) => {
     color: #f7547d;
     text-align: center;
     font-size: calc($capsuleHeight / 1.1);
+    .back-arrow {
+      margin-left: 36rpx;
+      position: fixed;
+      font-size: 80rpx;
+    }
   }
   .content {
     position: absolute;
     width: -webkit-fill-available;
     // background: gold;
-    margin: 0rpx 30rpx 30rpx 30rpx;
+    background: linear-gradient(0deg, $themePink, rgba(255, 255, 255, 0));
+    padding: 0rpx 30rpx 60rpx 30rpx;
     .module-box {
       background: rgba(255, 255, 255, 0.4);
       margin-top: 30rpx;
@@ -189,12 +178,15 @@ const menuItemClick = (url) => {
     }
     .module-timetable {
       min-height: 384rpx;
+      .weekday-name {
+        color: #f7547d;
+      }
     }
-    .module-menu {
+    .module-function {
       height: auto;
       border-radius: 20rpx;
       padding: 20rpx 0;
-      .menu-box {
+      .function-box {
         display: inline-block;
         text-align: center;
         height: 117rpx;
@@ -207,7 +199,7 @@ const menuItemClick = (url) => {
           // border: 1rpx solid #aaaaaa;
           border-radius: 10rpx;
         }
-        .menu-desc {
+        .function-desc {
           font-size: 30rpx;
         }
       }

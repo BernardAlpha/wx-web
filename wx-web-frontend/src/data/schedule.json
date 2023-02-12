@@ -100,10 +100,6 @@
         "className": "4"
       },
       {
-        "timeIndex": 13,
-        "className": "4"
-      },
-      {
         "timeIndex": 14,
         "className": "3"
       }
@@ -117,12 +113,12 @@
         "className": "3"
       },
       {
-        "timeIndex": 15,
-        "className": "3"
-      },
-      {
         "timeIndex": 19,
         "className": "4"
+      },
+      {
+        "timeIndex": 20,
+        "className": "3"
       }
     ]
   }
