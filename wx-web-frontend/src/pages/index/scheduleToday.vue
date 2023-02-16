@@ -23,9 +23,18 @@
 <script setup>
 import { onMounted, reactive, defineProps, watch, computed, defineEmits } from "vue";
 import Taro from '@tarojs/taro'
-import timeTable from '/src/data/timeTable.json'
-import schedule from '/src/data/schedule.json'
+import timeTable2022 from '/src/data/timeTable.json'
+import schedule2022 from '/src/data/schedule.json'
+import timeTable20230216 from '/src/data/timeTable20230216.json'
+import schedule20230216 from '/src/data/schedule20230216.json'
 import website from '/src/config/website'
+
+// const timeTable = timeTable2022;
+// const schedule = schedule2022;
+
+const timeTable = timeTable20230216;
+const schedule = schedule20230216;
+
 const props = defineProps({
     timeNow: Object,
     timeAxisShow: {

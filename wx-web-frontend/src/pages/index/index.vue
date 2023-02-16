@@ -18,6 +18,10 @@
         </view>
       </view>
       <view class="module-box module-notice">
+        <!-- <view style="float:right; padding:14rpx 20rpx 0 0">
+          <text style="margin-right: 10rpx;"> {{ switchChecked ? '切回旧版' : '切到新版' }}</text>
+          <switch style="height: 40rpx;" :onChange="switchChange" :checked="switchChecked" />
+        </view> -->
         <view class="module-title">
           营业通知
           <view class="notice-content">{{ here.notice }}</view>
@@ -38,7 +42,7 @@
 </template>
 
 <script setup>
-import { onMounted, reactive } from "vue";
+import { onMounted, reactive, ref, watch } from "vue";
 import Taro from '@tarojs/taro'
 import daysMatter from '/src/data/daysMatter.json'
 import website from '/src/config/website'
@@ -57,6 +61,7 @@ let here = reactive({
     {name: '菜单', icon: 'function-timetable3.png', url: '/pages/schedule/schedule'}
   ]
 });
+let switchChecked = ref(false);
 let systemInfo = Taro.getSystemInfoSync();  // 系统信息
 let capsuleInfo = Taro.getMenuButtonBoundingClientRect();  // 胶囊信息
 setInterval(caculateTimeeeper, 1000);
@@ -69,6 +74,12 @@ onMounted(() => {
   document.getElementById(`module-invisible`).style.setProperty('--titleMarginTop', titleMarginTop);
   document.getElementById(`module-invisible`).style.setProperty('--capsuleHeight', capsuleHeight);
 });
+
+const switchChange = () => {
+  console.log('sss', switchChecked)
+  switchChecked = !switchChecked;
+
+}
 
 function caculateTimeeeper() {
   // console.log('Date.now()', Date.now());

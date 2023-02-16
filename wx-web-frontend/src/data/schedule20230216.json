@@ -1,0 +1,125 @@
+[
+  {
+    "day": "Monday",
+    "course": [
+      {
+        "timeIndex": 2,
+        "className": "4"
+      },
+      {
+        "timeIndex": 8,
+        "className": "4"
+      },
+      {
+        "timeIndex": 9,
+        "className": "3"
+      }
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "course": [
+      {
+        "timeIndex": 2,
+        "className": "3"
+      },
+      {
+        "timeIndex": 6,
+        "className": "3"
+      },
+      {
+        "timeIndex": 9,
+        "className": "4"
+      },
+      {
+        "timeIndex": 15,
+        "className": "3"
+      }
+    ]
+  },
+  {
+    "day": "Wednesday",
+    "course": [
+      {
+        "timeIndex": 19,
+        "className": "4"
+      },
+      {
+        "timeIndex": 20,
+        "className": "3"
+      }
+    ]
+  },
+  {
+    "day": "Thursday",
+    "course": [
+      {
+        "timeIndex": 5,
+        "className": "4"
+      },
+      {
+        "timeIndex": 6,
+        "className": "3"
+      },
+      {
+        "timeIndex": 9,
+        "className": "4"
+      },
+      {
+        "timeIndex": 19,
+        "className": "4"
+      },
+      {
+        "timeIndex": 21,
+        "className": "3"
+      }
+    ]
+  },
+  {
+    "day": "Friday",
+    "course": [
+      {
+        "timeIndex": 2,
+        "className": "4"
+      },
+      {
+        "timeIndex": 13,
+        "className": "3"
+      },
+      {
+        "timeIndex": 16,
+        "className": "4"
+      }
+    ]
+  },
+  {
+    "day": "Saturday",
+    "course": [
+      {
+        "timeIndex": 2,
+        "className": "3"
+      },
+      {
+        "timeIndex": 13,
+        "className": "4"
+      }
+    ]
+  },
+  {
+    "day": "Sunday",
+    "course": [
+      {
+        "timeIndex": 6,
+        "className": "3"
+      },
+      {
+        "timeIndex": 19,
+        "className": "4"
+      },
+      {
+        "timeIndex": 20,
+        "className": "3"
+      }
+    ]
+  }
+]
