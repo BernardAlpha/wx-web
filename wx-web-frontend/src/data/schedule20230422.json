@@ -1,0 +1,145 @@
+[
+  {
+    "day": "Monday",
+    "course": [
+      {
+        "desc": "早读",
+        "className": "7"
+      },
+      {
+        "desc": "第三节课",
+        "className": "7"
+      },
+      {
+        "desc": "第四节课",
+        "className": "6"
+      }
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "course": [
+      {
+        "desc": "早读",
+        "className": "6"
+      },
+      {
+        "desc": "第一节课",
+        "className": "7"
+      },
+      {
+        "desc": "第三节课",
+        "className": "6"
+      }
+    ]
+  },
+  {
+    "day": "Wednesday",
+    "course": [
+      {
+        "desc": "第二节课",
+        "className": "7"
+      },
+      {
+        "desc": "自习一",
+        "className": "7"
+      },
+      {
+        "desc": "自习二",
+        "className": "6"
+      }
+    ]
+  },
+  {
+    "day": "Thursday",
+    "course": [
+      {
+        "desc": "第一节课",
+        "className": "7"
+      },
+      {
+        "desc": "第二节课",
+        "className": "6"
+      },
+      {
+        "desc": "第四节课",
+        "className": "7"
+      },
+      {
+        "desc": "自主",
+        "className": "6"
+      },
+      {
+        "desc": "自习一",
+        "className": "7"
+      },
+      {
+        "desc": "自由支配",
+        "className": "6"
+      }
+    ]
+  },
+  {
+    "day": "Friday",
+    "course": [
+      {
+        "desc": "早读",
+        "className": "7"
+      },
+      {
+        "desc": "第一节课",
+        "className": "教"
+      },
+      {
+        "desc": "第二节课",
+        "className": "研"
+      },
+      {
+        "desc": "自主",
+        "className": "7"
+      },
+      {
+        "desc": "自习一",
+        "className": "6"
+      }
+    ]
+  },
+  {
+    "day": "Saturday",
+    "course": [
+      {
+        "desc": "早读",
+        "className": "6"
+      },
+      {
+        "desc": "第五节课",
+        "className": "7"
+      },
+      {
+        "desc": "自习一",
+        "className": "6"
+      }
+    ]
+  },
+  {
+    "day": "Sunday",
+    "course": [
+      {
+        "desc": "第二节课",
+        "className": "6"
+      },
+      {
+        "desc": "第三节课",
+        "className": "7"
+      },
+      {
+        "desc": "自习一",
+        "className": "7"
+      },
+      {
+        "desc": "自习二",
+        "className": "6"
+      }
+    ]
+  }
+]
