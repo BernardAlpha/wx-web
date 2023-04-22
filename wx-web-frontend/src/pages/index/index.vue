@@ -29,7 +29,7 @@
       </view>
       <view class="module-box module-timetable">
         <view class="module-title">今日特色</view>
-        <schedule-today :timeAxisShow="true" :timeNow="here.timekeeper" @emitNotice="setNotice"></schedule-today>
+        <schedule-item :timeAxisShow="true" :timeNow="here.timekeeper" @emitNotice="setNotice"></schedule-item>
       </view>
       <view class="module-box module-menu">
         <view class="menu-box" v-for="(item, index) in here.menuList" v-on:tap="menuItemClick(item.url)">
@@ -46,7 +46,7 @@ import { onMounted, reactive, ref, watch } from "vue";
 import Taro from '@tarojs/taro'
 import daysMatter from '/src/data/daysMatter.json'
 import website from '/src/config/website'
-import scheduleToday from './scheduleToday.vue'
+import scheduleItem from '/src/pages/components/scheduleItem.vue'
 let here = reactive({
   pageName: 'home',
   timekeeper: {
@@ -58,7 +58,8 @@ let here = reactive({
   },
   notice: '',
   menuList: [
-    {name: '菜单', icon: 'function-timetable3.png', url: '/pages/schedule/schedule'}
+    {name: '菜单', icon: 'function-timetable3.png', url: '/pages/schedule/schedule'},
+    {name: '菜单2', icon: 'function-timetable3.png', url: '/pages/schedule/schedule'}
   ]
 });
 let switchChecked = ref(false);

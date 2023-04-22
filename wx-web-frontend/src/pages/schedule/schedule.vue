@@ -6,7 +6,7 @@
         <view v-for="(item, index) in here.weekList" class="module-box module-timetable"
           :style="new Date().getDay() === index + 1 ? 'background: linear-gradient(150deg,#4a90f7,hsla(0,0%,100%,0));' : ''">
           <view class="module-title weekday-name">{{ item.name + (new Date().getDay() === index + 1 ? '(Today)' : '') }}</view>
-          <schedule-today :timeAxisShow="new Date().getDay() === index + 1" :weekDay="index + 1" :timeNow="caculateTimeeeper()" @emitNotice="setNotice"></schedule-today>
+          <schedule-item :timeAxisShow="new Date().getDay() === index + 1" :weekDay="index + 1" :timeNow="caculateTimeeeper()" @emitNotice="setNotice"></schedule-item>
         </view>
       </view>
       <view class="nav-title" :id="`${here.pageName}-title`">
@@ -21,7 +21,7 @@ import { onMounted, reactive } from "vue";
 import Taro from '@tarojs/taro'
 import daysMatter from '/src/data/daysMatter.json'
 import website from '/src/config/website'
-import scheduleToday from '../index/scheduleToday.vue'
+import scheduleItem from '/src/pages/components/scheduleItem.vue'
 import { stringify } from "qs";
 let here = reactive({
   pageName: 'home',

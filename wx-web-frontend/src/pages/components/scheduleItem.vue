@@ -2,7 +2,7 @@
   <view class="schedule-today">
     <view class="time-axis">
       <view class="lesson" v-for="(item, index) in here.scheduleToday" :key="index" :style="item.style">
-        <text class="class-name" :style="isChineseStr(item.className) ? 'font-size:24rpx;' : ''">
+        <text class="class-name" :style="isChineseStr(item.className) ? 'font-size:22rpx;' : ''">
           {{ item.className }}
         </text>
         <view class="lesson-desc lesson-desc-top">{{ `${item.desc}` }} </view>
