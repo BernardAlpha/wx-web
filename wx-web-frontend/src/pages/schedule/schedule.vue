@@ -4,9 +4,9 @@
       <view class="content">
         <view class="module-box module-invisible" id="module-invisible"></view>
         <view v-for="(item, index) in here.weekList" class="module-box module-timetable"
-          :style="new Date().getDay() === index + 1 ? 'background: linear-gradient(150deg,#4a90f7,hsla(0,0%,100%,0));' : ''">
-          <view class="module-title weekday-name">{{ item.name + (new Date().getDay() === index + 1 ? '(Today)' : '') }}</view>
-          <schedule-item :timeAxisShow="new Date().getDay() === index + 1" :weekDay="index + 1" :timeNow="caculateTimeeeper()" @emitNotice="setNotice"></schedule-item>
+          :style="new Date().getDay() === (index + 1) % 7 ? 'background: linear-gradient(150deg,#4a90f7,hsla(0,0%,100%,0));' : ''">
+          <view class="module-title weekday-name">{{ item.name + (new Date().getDay() === (index + 1) % 7 ? '(Today)' : '') }}</view>
+          <schedule-item :timeAxisShow="new Date().getDay() === (index + 1) % 7" :weekDay="index + 1" :timeNow="caculateTimeeeper()" @emitNotice="setNotice"></schedule-item>
         </view>
       </view>
       <view class="nav-title" :id="`${here.pageName}-title`">
@@ -46,7 +46,7 @@ let here = reactive({
 
 let systemInfo = Taro.getSystemInfoSync();  // 系统信息
 let capsuleInfo = Taro.getMenuButtonBoundingClientRect();  // 胶囊信息
- 
+
 // here.timekeeper = caculateTimeeeper();
 // setInterval(() =>{
 //   const x = stringify(here.weekList );

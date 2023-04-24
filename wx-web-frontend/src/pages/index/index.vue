@@ -58,8 +58,7 @@ let here = reactive({
   },
   notice: '',
   menuList: [
-    {name: '菜单', icon: 'function-timetable3.png', url: '/pages/schedule/schedule'},
-    {name: '菜单2', icon: 'function-timetable3.png', url: '/pages/schedule/schedule'}
+    {name: '菜单', icon: 'function-timetable3.png', url: '/pages/schedule/schedule'}
   ]
 });
 let switchChecked = ref(false);
