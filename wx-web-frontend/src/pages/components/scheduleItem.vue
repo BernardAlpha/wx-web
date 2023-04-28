@@ -21,14 +21,13 @@
 
 <script setup>
 import { onMounted, reactive, defineProps, watch, computed, defineEmits } from "vue";
-import Taro from '@tarojs/taro'
-// import timeTable2022 from '/src/data/timeTable.json'
-import timeTable20230216 from '/src/data/timeTable20230216.json'
-// import schedule2022 from '/src/data/schedule.json'
-// import schedule20230216 from '/src/data/schedule20230216.json'
-import schedule20230422 from '/src/data/schedule20230422.json'
-import website from '/src/config/website'
-import { isChineseStr } from '/src/utils/common'
+// import timeTable2022 from '@/data/timeTable.json'
+import timeTable20230216 from '@/data/timeTable20230216.json'
+// import schedule2022 from '@/data/schedule.json'
+// import schedule20230216 from '@/data/schedule20230216.json'
+import schedule20230422 from '@/data/schedule20230422.json'
+import website from '@/config/website'
+import { isChineseStr } from '@/utils/common'
 
 const timeTable = timeTable20230216;
 const schedule = schedule20230422;
@@ -103,7 +102,7 @@ function emitNotice() {
 </script>
 
 <style lang="scss">
-@import '/src/styles/variables.scss';
+@import '@/styles/variables.scss';
 $timeAxisHeight: 60rpx;
 $descHeight: 60rpx;
 

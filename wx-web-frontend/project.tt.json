@@ -1,9 +1,0 @@
-{
-  "miniprogramRoot": "./",
-  "projectname": "wx-web-frontend",
-  "appid": "wx2d0c03028e32da41",
-  "setting": {
-    "es6": false,
-    "minified": false
-  }
-}

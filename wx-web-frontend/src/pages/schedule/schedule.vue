@@ -2,28 +2,29 @@
   <view class="home weapp-home">
       <view class="top-back"></view>
       <view class="content">
-        <view class="module-box module-invisible" id="module-invisible"></view>
+        <view class="module-box module-invisible" :style="here.invisibleStyle" id="module-invisible"></view>
         <view v-for="(item, index) in here.weekList" class="module-box module-timetable"
           :style="new Date().getDay() === (index + 1) % 7 ? 'background: linear-gradient(150deg,#4a90f7,hsla(0,0%,100%,0));' : ''">
           <view class="module-title weekday-name">{{ item.name + (new Date().getDay() === (index + 1) % 7 ? '(Today)' : '') }}</view>
           <schedule-item :timeAxisShow="new Date().getDay() === (index + 1) % 7" :weekDay="index + 1" :timeNow="caculateTimeeeper()" @emitNotice="setNotice"></schedule-item>
         </view>
       </view>
-      <view class="nav-title" :id="`${here.pageName}-title`">
-        <view class="back-arrow" v-on:tap="Taro.navigateBack({delta: 1})">{{ '<' }}</view>
+      <view class="nav-title" :style="here.titleStyle" :id="`${here.pageName}-title`">
+        <view class="back-arrow" @click="goBack">{{ '<' }}</view>
         <view>菜单</view>
       </view>
   </view>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { onMounted, reactive } from "vue";
-import Taro from '@tarojs/taro'
-import daysMatter from '/src/data/daysMatter.json'
-import website from '/src/config/website'
-import scheduleItem from '/src/pages/components/scheduleItem.vue'
-import { stringify } from "qs";
-let here = reactive({
+import daysMatter from '@/data/daysMatter.json'
+import website from '@/config/website'
+import scheduleItem from '@/pages/components/scheduleItem.vue'
+// import { stringify } from "qs";
+const here = reactive({
+  titleStyle: {},
+  invisibleStyle: {},
   pageName: 'home',
   timekeeper: {
     day: 0,
@@ -44,8 +45,11 @@ let here = reactive({
   ]
 });
 
-let systemInfo = Taro.getSystemInfoSync();  // 系统信息
-let capsuleInfo = Taro.getMenuButtonBoundingClientRect();  // 胶囊信息
+let systemInfo = uni.getSystemInfoSync();  // 系统信息
+let capsuleInfo = {};
+// #ifdef MP-WEIXIN
+capsuleInfo = uni.getMenuButtonBoundingClientRect();  // 胶囊信息
+// #endif
 
 // here.timekeeper = caculateTimeeeper();
 // setInterval(() =>{
@@ -55,15 +59,18 @@ let capsuleInfo = Taro.getMenuButtonBoundingClientRect();  // 胶囊信息
 //   console.log(here.timekeeper);
 // }, 1000);
 
-onMounted(() => {
-  let titleMarginTop = `${capsuleInfo.top * 2 / (systemInfo.windowWidth / 375)}rpx`;
-  let capsuleHeight = `${capsuleInfo.height * 2 / (systemInfo.windowWidth / 375)}rpx`;
-  document.getElementById(`${here.pageName}-title`).style.setProperty('--titleMarginTop', titleMarginTop);
-  document.getElementById(`${here.pageName}-title`).style.setProperty('--capsuleHeight', capsuleHeight);
-  document.getElementById(`module-invisible`).style.setProperty('--titleMarginTop', titleMarginTop);
-  document.getElementById(`module-invisible`).style.setProperty('--capsuleHeight', capsuleHeight);
-});
+let titleMarginTop = `${capsuleInfo.top * 2 / (systemInfo.windowWidth / 375)}rpx`;
+let capsuleHeight = `${capsuleInfo.height * 2 / (systemInfo.windowWidth / 375)}rpx`;
 
+here.titleStyle = {
+  "padding-top": titleMarginTop,
+  "height": capsuleHeight,
+  "line-height": capsuleHeight,
+  "font-size": `calc(${capsuleHeight} / 1.1)`
+}
+here.invisibleStyle = {
+  "margin-top": `calc(${titleMarginTop} + ${capsuleHeight} + 30rpx)`
+}
 
 function caculateTimeeeper(weekday) {
   let difference = Date.now() - Date.parse(daysMatter.beTogether);  // ms
@@ -82,10 +89,14 @@ function caculateTimeeeper(weekday) {
 function setNotice(notice) {
   here.notice = notice;
 }
+
+const goBack = () => {
+  uni.navigateBack({delta: 1})
+}
 </script>
 
 <style lang="scss">
-@import '/src/styles/variables.scss';
+@import '@/styles/variables.scss';
 .home {
   // position: absolute;
   min-height: 100%;

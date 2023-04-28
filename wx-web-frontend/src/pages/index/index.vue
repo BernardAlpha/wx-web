@@ -1,9 +1,9 @@
 <template>
   <view class="home weapp-home">
     <view class="top-back"></view>
-    <view class="nav-title" :id="`${here.pageName}-title`">麦兰镇炸鸡店</view>
+    <view class="nav-title" :style="here.titleStyle" :id="`${here.pageName}-title`">麦兰镇炸鸡店</view>
     <view class="content">
-      <view class="module-box module-invisible" id="module-invisible"></view>
+      <view class="module-box module-invisible" :style="here.invisibleStyle" id="module-invisible"></view>
       <view class="module-box module-timing">
         <view class="timing-text">我们在一起</view>
         <view class="timekeeper">
@@ -32,7 +32,7 @@
         <schedule-item :timeAxisShow="true" :timeNow="here.timekeeper" @emitNotice="setNotice"></schedule-item>
       </view>
       <view class="module-box module-menu">
-        <view class="menu-box" v-for="(item, index) in here.menuList" v-on:tap="menuItemClick(item.url)">
+        <view class="menu-box" v-for="(item, index) in here.menuList" @click="menuItemClick(item.url)" :key="index">
           <image :src="`${website.staticPrefix}/public/img/${item.icon}`"></image>
           <view class="menu-desc">{{ item.name }}</view>
         </view>
@@ -41,13 +41,15 @@
   </view>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { onMounted, reactive, ref, watch } from "vue";
-import Taro from '@tarojs/taro'
-import daysMatter from '/src/data/daysMatter.json'
-import website from '/src/config/website'
-import scheduleItem from '/src/pages/components/scheduleItem.vue'
-let here = reactive({
+import daysMatter from '@/data/daysMatter.json'
+import website from '@/config/website'
+import scheduleItem from '@/pages/components/scheduleItem.vue'
+
+const here = reactive({
+  titleStyle: {},
+  invisibleStyle: {},
   pageName: 'home',
   timekeeper: {
     day: 0,
@@ -62,18 +64,28 @@ let here = reactive({
   ]
 });
 let switchChecked = ref(false);
-let systemInfo = Taro.getSystemInfoSync();  // 系统信息
-let capsuleInfo = Taro.getMenuButtonBoundingClientRect();  // 胶囊信息
+let systemInfo = uni.getSystemInfoSync();  // 系统信息
+
+let capsuleInfo = {};
+// #ifdef MP-WEIXIN
+capsuleInfo = uni.getMenuButtonBoundingClientRect();  // 胶囊信息
+// #endif
+
 setInterval(caculateTimeeeper, 1000);
-console.log(here.timekeeper);
-onMounted(() => {
-  let titleMarginTop = `${capsuleInfo.top * 2 / (systemInfo.windowWidth / 375)}rpx`;
-  let capsuleHeight = `${capsuleInfo.height * 2 / (systemInfo.windowWidth / 375)}rpx`;
-  document.getElementById(`${here.pageName}-title`).style.setProperty('--titleMarginTop', titleMarginTop);
-  document.getElementById(`${here.pageName}-title`).style.setProperty('--capsuleHeight', capsuleHeight);
-  document.getElementById(`module-invisible`).style.setProperty('--titleMarginTop', titleMarginTop);
-  document.getElementById(`module-invisible`).style.setProperty('--capsuleHeight', capsuleHeight);
-});
+console.log('capsuleInfo', capsuleInfo);
+
+let titleMarginTop = `${capsuleInfo.top * 2 / (systemInfo.windowWidth / 375)}rpx`;
+let capsuleHeight = `${capsuleInfo.height * 2 / (systemInfo.windowWidth / 375)}rpx`;
+
+here.titleStyle = {
+  "padding-top": titleMarginTop,
+  "height": capsuleHeight,
+  "line-height": capsuleHeight,
+  "font-size": `calc(${capsuleHeight} / 1.1)`
+}
+here.invisibleStyle = {
+  "margin-top": `calc(${titleMarginTop} + ${capsuleHeight} + 30rpx)`
+}
 
 const switchChange = () => {
   console.log('sss', switchChecked)
@@ -105,14 +117,14 @@ function setNotice(notice) {
 
 const menuItemClick = (url) => {
   console.log('url', url);
-  Taro.navigateTo({
+  uni.navigateTo({
     url: url
   })
 }
 </script>
 
 <style lang="scss">
-@import '/src/styles/variables.scss';
+@import '@/styles/variables.scss';
 .home {
   // position: absolute;
   height: 100%;
