@@ -2,7 +2,7 @@
   <view class="my-page">
     <nav-bar pageName="麦兰镇炸鸡店" :titleId="here.pageName" :canBack="false" topShadowHeight="360rpx"></nav-bar>
     <view class="content">
-      <view class="module-box module-invisible" :style="here.invisibleStyle" id="module-invisible"></view>
+      <invisible-module></invisible-module>
       <view class="module-box module-timing">
         <view class="timing-text">我们在一起</view>
         <view class="timekeeper">
@@ -46,9 +46,9 @@ import daysMatter from '@/data/daysMatter.json'
 import website from '@/config/website'
 import scheduleItem from '@/pages/components/scheduleItem.vue'
 import navBar from '@/pages/components/navBar.vue'
+import invisibleModule from "@/pages/components/invisibleModule.vue";
 
 const here = reactive({
-  titleStyle: {},
   invisibleStyle: {},
   pageName: 'home',
   timekeeper: {
@@ -60,7 +60,8 @@ const here = reactive({
   },
   notice: '',
   menuList: [
-    {name: '菜单', icon: 'function-timetable3.png', url: '/pages/schedule/schedule'}
+    {name: '菜单', icon: 'function-timetable3.png', url: '/pages/schedule/schedule'},
+    {name: '时间线', icon: 'function-timetable3.png', url: '/pages/timeline/timeline'}
   ]
 });
 let switchChecked = ref(false);
@@ -77,12 +78,6 @@ console.log('capsuleInfo', capsuleInfo);
 let titleMarginTop = `${capsuleInfo.top * 2 / (systemInfo.windowWidth / 375)}rpx`;
 let capsuleHeight = `${capsuleInfo.height * 2 / (systemInfo.windowWidth / 375)}rpx`;
 
-here.titleStyle = {
-  "padding-top": titleMarginTop,
-  "height": capsuleHeight,
-  "line-height": capsuleHeight,
-  "font-size": `calc(${capsuleHeight} / 1.1)`
-}
 here.invisibleStyle = {
   "margin-top": `calc(${titleMarginTop} + ${capsuleHeight} + 30rpx)`
 }
@@ -128,27 +123,7 @@ const menuItemClick = (url) => {
 .my-page {
   background: linear-gradient(0deg, $themePink, rgba(255, 255, 255, 0));
   .content {
-    position: absolute;
-    width: -webkit-fill-available;
-    // background: gold;
     margin: 0rpx 30rpx 30rpx 30rpx;
-    .module-box {
-      background: rgba(255, 255, 255, 0.4);
-      margin-top: 30rpx;
-      min-height: 260rpx;
-      width: 100%;
-      border-radius: 20rpx;
-      .module-title {
-        padding: 20rpx;
-      }
-    }
-    .module-invisible {
-      margin-top: 200rpx;
-      margin-top: calc($titleMarginTop + $capsuleHeight + 30rpx);
-      background: transparent;
-      min-height: 0rpx;
-      height: 0rpx;
-    }
     .module-timing {
       height: auto;
       text-align: center;

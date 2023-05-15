@@ -64,7 +64,7 @@ const goBack = () => {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/styles/variables.scss";
 .nav-bar {
   .top-back {

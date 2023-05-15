@@ -1,9 +1,9 @@
 <template>
   <view class="my-page">
     <view class="content">
-      <view class="module-box module-invisible" :style="here.invisibleStyle" id="module-invisible"></view>
+      <invisible-module></invisible-module>
       <view v-for="(item, index) in here.weekList" class="module-box module-timetable"
-        :style="new Date().getDay() === (index + 1) % 7 ? 'background: linear-gradient(150deg,#4a90f7,hsla(0,0%,100%,0));' : ''">
+        :style="new Date().getDay() === (index + 1) % 7 ? 'background: linear-gradient(150deg,#b4f879,hsla(0,0%,100%,0));' : ''">
         <view class="module-title weekday-name">{{ item.name + (new Date().getDay() === (index + 1) % 7 ? '(Today)' : '') }}</view>
         <schedule-item :timeAxisShow="new Date().getDay() === (index + 1) % 7" :weekDay="index + 1" :timeNow="caculateTimeeeper()" @emitNotice="setNotice"></schedule-item>
       </view>
@@ -18,9 +18,9 @@ import daysMatter from '@/data/daysMatter.json'
 import website from '@/config/website'
 import scheduleItem from '@/pages/components/scheduleItem.vue'
 import navBar from '@/pages/components/navBar.vue'
+import invisibleModule from "@/pages/components/invisibleModule.vue";
 // import { stringify } from "qs";
 const here = reactive({
-  titleStyle: {},
   invisibleStyle: {},
   pageName: 'home',
   timekeeper: {
@@ -59,12 +59,6 @@ capsuleInfo = uni.getMenuButtonBoundingClientRect();  // 胶囊信息
 let titleMarginTop = `${capsuleInfo.top * 2 / (systemInfo.windowWidth / 375)}rpx`;
 let capsuleHeight = `${capsuleInfo.height * 2 / (systemInfo.windowWidth / 375)}rpx`;
 
-here.titleStyle = {
-  "padding-top": titleMarginTop,
-  "height": capsuleHeight,
-  "line-height": capsuleHeight,
-  "font-size": `calc(${capsuleHeight} / 1.1)`
-}
 here.invisibleStyle = {
   "margin-top": `calc(${titleMarginTop} + ${capsuleHeight} + 30rpx)`
 }
@@ -97,28 +91,8 @@ const goBack = () => {
 .my-page {
   background: none;
   .content {
-    position: absolute;
-    width: -webkit-fill-available;
-    // background: gold;
     background: linear-gradient(0deg, $themePink, rgba(255, 255, 255, 0));
     padding: 0rpx 30rpx 60rpx 30rpx;
-    .module-box {
-      background: rgba(255, 255, 255, 0.4);
-      margin-top: 30rpx;
-      min-height: 260rpx;
-      width: 100%;
-      border-radius: 20rpx;
-      .module-title {
-        padding: 20rpx;
-      }
-    }
-    .module-invisible {
-      margin-top: 200rpx;
-      margin-top: calc($titleMarginTop + $capsuleHeight + 30rpx);
-      background: transparent;
-      min-height: 0rpx;
-      height: 0rpx;
-    }
     .module-timing {
       height: auto;
       text-align: center;
