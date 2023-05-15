@@ -1,7 +1,6 @@
 <template>
   <view class="home weapp-home">
-    <view class="top-back"></view>
-    <view class="nav-title" :style="here.titleStyle" :id="`${here.pageName}-title`">麦兰镇炸鸡店</view>
+    <nav-bar pageName="麦兰镇炸鸡店" :titleId="here.pageName" :canBack="false" topShadowHeight="360rpx"></nav-bar>
     <view class="content">
       <view class="module-box module-invisible" :style="here.invisibleStyle" id="module-invisible"></view>
       <view class="module-box module-timing">
@@ -46,6 +45,7 @@ import { onMounted, reactive, ref, watch } from "vue";
 import daysMatter from '@/data/daysMatter.json'
 import website from '@/config/website'
 import scheduleItem from '@/pages/components/scheduleItem.vue'
+import navBar from '@/pages/components/navBar.vue'
 
 const here = reactive({
   titleStyle: {},
@@ -135,23 +135,6 @@ const menuItemClick = (url) => {
   background-size: contain;
   background-repeat: no-repeat;
   z-index: -2;
-  .top-back {
-    width: 100%;
-    height: 360rpx;
-    background: linear-gradient(180deg, $themePink, rgba(255, 255, 255, 0));
-    position: fixed;
-  }
-  .nav-title {
-    position: fixed;
-    padding-top: $titleMarginTop;
-    // background: coral;
-    width: 100%;
-    height: $capsuleHeight;
-    line-height: $capsuleHeight;
-    color: #f7547d;
-    text-align: center;
-    font-size: calc($capsuleHeight / 1.1);
-  }
   .content {
     position: absolute;
     width: -webkit-fill-available;

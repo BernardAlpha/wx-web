@@ -1,18 +1,14 @@
 <template>
   <view class="home weapp-home">
-      <view class="top-back"></view>
-      <view class="content">
-        <view class="module-box module-invisible" :style="here.invisibleStyle" id="module-invisible"></view>
-        <view v-for="(item, index) in here.weekList" class="module-box module-timetable"
-          :style="new Date().getDay() === (index + 1) % 7 ? 'background: linear-gradient(150deg,#4a90f7,hsla(0,0%,100%,0));' : ''">
-          <view class="module-title weekday-name">{{ item.name + (new Date().getDay() === (index + 1) % 7 ? '(Today)' : '') }}</view>
-          <schedule-item :timeAxisShow="new Date().getDay() === (index + 1) % 7" :weekDay="index + 1" :timeNow="caculateTimeeeper()" @emitNotice="setNotice"></schedule-item>
-        </view>
+    <view class="content">
+      <view class="module-box module-invisible" :style="here.invisibleStyle" id="module-invisible"></view>
+      <view v-for="(item, index) in here.weekList" class="module-box module-timetable"
+        :style="new Date().getDay() === (index + 1) % 7 ? 'background: linear-gradient(150deg,#4a90f7,hsla(0,0%,100%,0));' : ''">
+        <view class="module-title weekday-name">{{ item.name + (new Date().getDay() === (index + 1) % 7 ? '(Today)' : '') }}</view>
+        <schedule-item :timeAxisShow="new Date().getDay() === (index + 1) % 7" :weekDay="index + 1" :timeNow="caculateTimeeeper()" @emitNotice="setNotice"></schedule-item>
       </view>
-      <view class="nav-title" :style="here.titleStyle" :id="`${here.pageName}-title`">
-        <view class="back-arrow" @click="goBack">{{ '<' }}</view>
-        <view>菜单</view>
-      </view>
+    </view>
+    <nav-bar pageName="菜单" titleId="menu"></nav-bar>
   </view>
 </template>
 
@@ -21,6 +17,7 @@ import { onMounted, reactive } from "vue";
 import daysMatter from '@/data/daysMatter.json'
 import website from '@/config/website'
 import scheduleItem from '@/pages/components/scheduleItem.vue'
+import navBar from '@/pages/components/navBar.vue'
 // import { stringify } from "qs";
 const here = reactive({
   titleStyle: {},
@@ -107,27 +104,6 @@ const goBack = () => {
   background-size: contain;
   background-repeat: no-repeat;
   z-index: -2;
-  .top-back {
-    width: 100%;
-    height: 360rpx;
-    position: fixed;
-  }
-  .nav-title {
-    position: fixed;
-    padding-top: $titleMarginTop;
-    // background: coral;
-    width: 100%;
-    height: $capsuleHeight;
-    line-height: $capsuleHeight;
-    color: #f7547d;
-    text-align: center;
-    font-size: calc($capsuleHeight / 1.1);
-    .back-arrow {
-      margin-left: 36rpx;
-      position: fixed;
-      font-size: 80rpx;
-    }
-  }
   .content {
     position: absolute;
     width: -webkit-fill-available;
