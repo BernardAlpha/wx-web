@@ -1,5 +1,15 @@
+@import '@/styles/variables.scss';
 page {
   height: 100%;
   width: 100%;
   font-family: 'MissU';
+}
+
+.my-page {
+  min-height: 100%;
+  width: 100%;
+  background: $themePink;
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: -2;
 }

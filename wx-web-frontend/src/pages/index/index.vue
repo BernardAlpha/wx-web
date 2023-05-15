@@ -1,5 +1,5 @@
 <template>
-  <view class="home weapp-home">
+  <view class="my-page">
     <nav-bar pageName="麦兰镇炸鸡店" :titleId="here.pageName" :canBack="false" topShadowHeight="360rpx"></nav-bar>
     <view class="content">
       <view class="module-box module-invisible" :style="here.invisibleStyle" id="module-invisible"></view>
@@ -123,18 +123,10 @@ const menuItemClick = (url) => {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/styles/variables.scss';
-.home {
-  // position: absolute;
-  height: 100%;
-  width: 100%;
-  background: $themePink;
+.my-page {
   background: linear-gradient(0deg, $themePink, rgba(255, 255, 255, 0));
-  // background-image: linear-gradient(0deg, rgba(58, 18, 95, 0.9), rgb(255, 255, 255, 0)), url("#{$staticPrefix}/public/img/home-bar-bg4.jpg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  z-index: -2;
   .content {
     position: absolute;
     width: -webkit-fill-available;

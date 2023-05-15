@@ -1,5 +1,5 @@
 <template>
-  <view class="home weapp-home">
+  <view class="my-page">
     <view class="content">
       <view class="module-box module-invisible" :style="here.invisibleStyle" id="module-invisible"></view>
       <view v-for="(item, index) in here.weekList" class="module-box module-timetable"
@@ -92,18 +92,10 @@ const goBack = () => {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/styles/variables.scss';
-.home {
-  // position: absolute;
-  min-height: 100%;
-  width: 100%;
-  background: $themePink;
-  // background: linear-gradient(0deg, $themePink, rgba(255, 255, 255, 0));
+.my-page {
   background: none;
-  background-size: contain;
-  background-repeat: no-repeat;
-  z-index: -2;
   .content {
     position: absolute;
     width: -webkit-fill-available;
