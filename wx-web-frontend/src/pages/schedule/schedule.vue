@@ -2,7 +2,7 @@
   <view class="my-page">
     <view class="content">
       <invisible-module></invisible-module>
-      <view v-for="(item, index) in here.weekList" class="module-box module-timetable"
+      <view v-for="(item, index) in here.weekList" class="module-box module-timetable" :key="index"
         :style="new Date().getDay() === (index + 1) % 7 ? 'background: linear-gradient(150deg,#b4f879,hsla(0,0%,100%,0));' : ''">
         <view class="module-title weekday-name">{{ item.name + (new Date().getDay() === (index + 1) % 7 ? '(Today)' : '') }}</view>
         <schedule-item :timeAxisShow="new Date().getDay() === (index + 1) % 7" :weekDay="index + 1" :timeNow="caculateTimeeeper()" @emitNotice="setNotice"></schedule-item>

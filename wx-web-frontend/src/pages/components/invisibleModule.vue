@@ -1,9 +1,11 @@
-<template>
-  <view
-    class="module-box module-invisible"
-    :style="invisibleStyle"
-    id="module-invisible"
-  ></view>
+<template class="module-box module-invisible">
+  <!--  #ifdef  H5 -->
+  <view class="module-box module-invisible" :style="invisibleStyle"></view>
+  <!--  #endif -->
+
+  <!--  #ifdef  MP-WEIXIN -->
+  <view :style="invisibleStyle"></view>
+  <!--  #endif -->
 </template>
 
 <script lang="ts" setup>
@@ -31,7 +33,7 @@ invisibleStyle.value = {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables.scss';
+@import "@/styles/variables.scss";
 .module-invisible {
   margin-top: calc($titleMarginTop + $capsuleHeight + 30rpx) !important;
   background: transparent !important;
