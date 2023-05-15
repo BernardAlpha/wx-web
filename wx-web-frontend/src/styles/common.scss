@@ -1,8 +1,8 @@
-@import '@/styles/variables.scss';
+@import "@/styles/variables.scss";
 page {
   height: 100%;
   width: 100%;
-  font-family: 'MissU';
+  font-family: "MissU";
 }
 
 .my-page {
@@ -12,4 +12,18 @@ page {
   background-size: contain;
   background-repeat: no-repeat;
   z-index: -2;
+  .content {
+    position: absolute;
+    width: -webkit-fill-available;
+    .module-box {
+      background: rgba(255, 255, 255, 0.4);
+      margin-top: 30rpx;
+      min-height: 260rpx;
+      width: 100%;
+      border-radius: 20rpx;
+      .module-title {
+        padding: 20rpx;
+      }
+    }
+  }
 }
