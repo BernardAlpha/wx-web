@@ -94,7 +94,7 @@
           <view>背题模式</view>
           <switch
             :checked="alwaysShowAnwser"
-            color="#95ff5c"
+            color="#1AAD19"
             @click="switchClick"
             style="transform: scale(0.7)"
           />
