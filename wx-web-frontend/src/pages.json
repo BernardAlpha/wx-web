@@ -1,31 +1,45 @@
 {
-	"pages": [
-		{
-			"path": "pages/index/index",
-			"style": {
-				"navigationBarTitleText": "",
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/schedule/schedule",
-			"style": {
-				"navigationBarTitleText": "",
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/timeline/timeline",
-			"style": {
-				"navigationBarTitleText": "",
-				"navigationStyle": "custom"
-			}
-		}
-	],
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
-	}
+  "pages": [
+    {
+      "path": "pages/test/hub",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/test/questions",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/schedule/schedule",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/timeline/timeline",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  }
 }

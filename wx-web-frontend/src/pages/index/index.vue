@@ -55,6 +55,13 @@ import scheduleItem from '@/pages/components/scheduleItem.vue'
 import navBar from '@/pages/components/navBar.vue'
 import invisibleModule from "@/pages/components/invisibleModule.vue";
 
+const hubValue = uni.getStorageSync("hubValue");
+if(hubValue !== '20221003') {
+  uni.redirectTo({
+    url: "/pages/test/hub",
+  });
+}
+
 const here = reactive({
   invisibleStyle: {},
   pageName: 'home',
@@ -68,7 +75,8 @@ const here = reactive({
   notice: '',
   menuList: [
     {name: '菜单', icon: 'function-timetable3.png', url: '/pages/schedule/schedule'},
-    {name: '时间线', icon: 'function-timetable3.png', url: '/pages/timeline/timeline'}
+    {name: '时间线', icon: 'function-timetable3.png', url: '/pages/timeline/timeline'},
+    {name: '刷题', icon: 'function-timetable3.png', url: '/pages/test/questions'}
   ]
 });
 
