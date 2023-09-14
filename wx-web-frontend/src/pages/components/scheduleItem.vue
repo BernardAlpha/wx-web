@@ -2,11 +2,11 @@
   <view class="schedule-today">
     <view class="time-axis">
       <view class="lesson" v-for="(item, index) in here.scheduleToday" :key="index" :style="item.style">
-        <text class="class-name" :style="isChineseStr(item.className) ? 'font-size:22rpx;' : ''">
+        <text class="class-name" :style="isChineseStr(item.className) ? 'font-size:22rpx;margin-left: -8rpx;' : ''">
           {{ item.className }}
         </text>
-        <view class="lesson-desc lesson-desc-top">{{ `${item.desc}` }} </view>
-        <view class="lesson-desc lesson-desc-bottom">{{ `${item.start} - ${item.end}` }}</view>
+        <view :style="item.desc == '早读' ? 'margin-left: -8rpx;': ''" class="lesson-desc lesson-desc-top">{{ `${item.desc}` }} </view>
+        <view :style="item.desc == '早读' ? 'margin-left: -8rpx;': ''" class="lesson-desc lesson-desc-bottom">{{ `${item.start} - ${item.end}` }}</view>
       </view>
     </view>
     <view v-show="props.timeAxisShow" class="time-axis time-axis-float" :style="`width:${here.timeAxisFloatWidth}%;`">
@@ -21,16 +21,15 @@
 
 <script setup>
 import { onMounted, reactive, defineProps, watch, computed, defineEmits } from "vue";
-// import timeTable2022 from '@/data/timeTable.json'
-import timeTable20230216 from '@/data/timeTable20230216.json'
-// import schedule2022 from '@/data/schedule.json'
-// import schedule20230216 from '@/data/schedule20230216.json'
-import schedule20230422 from '@/data/schedule20230422.json'
+// import timeTable from '@/data/timeTable.json'
+// import timeTable from '@/data/timeTable20230216.json'
+import timeTable from '@/data/timeTable20230913.json'
+// import schedule from '@/data/schedule.json'
+// import schedule from '@/data/schedule20230216.json'
+// import schedule from '@/data/schedule20230422.json'
+import schedule from '@/data/schedule20230913.json'
 import website from '@/config/website'
 import { isChineseStr } from '@/utils/common'
-
-const timeTable = timeTable20230216;
-const schedule = schedule20230422;
 
 const props = defineProps({
   timeNow: Object,
@@ -125,9 +124,11 @@ $descHeight: 60rpx;
     line-height: $timeAxisHeight;
     text-align: center;
     font-size: 30rpx;
+
     .class-name {
       vertical-align: bottom;
     }
+
     .lesson-desc {
       text-align: right;
       margin-top: -($timeAxisHeight + $descHeight + 80rpx);
@@ -136,6 +137,10 @@ $descHeight: 60rpx;
       height: 142rpx;
       line-height: 20rpx;
     }
+
+    // .lesson-desc-top {
+    //   margin-left: -10rpx;
+    // }
 
     .lesson-desc-bottom {
       text-align: left;

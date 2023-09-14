@@ -20,7 +20,7 @@
         <view class="module-title">
           DaysMatter
           <!-- <view class="notice-content"><text>距离暑假还有</text><view>{{ reverseCountdownDays }}</view><text>天</text></view> -->
-          <view class="notice-content">距离暑假还有<text class="number">{{ reverseCountdownDays }}</text>天哟</view>
+          <view class="notice-content">距离国庆还有<text class="number">{{ reverseCountdownDays }}</text>天哟</view>
         </view>
       </view>
       <view class="module-box module-notice">
@@ -80,7 +80,7 @@ const here = reactive({
   ]
 });
 
-const reverseCountdownDays = Math.ceil( ((new Date('2023-07-03')).getTime() - (new Date()).getTime()) / (1000 * 60 * 60 * 24) - 1)
+const reverseCountdownDays = Math.ceil( ((new Date('2023-09-29')).getTime() - (new Date()).getTime()) / (1000 * 60 * 60 * 24) - 1)
 
 let switchChecked = ref(false);
 let systemInfo = uni.getSystemInfoSync();  // 系统信息

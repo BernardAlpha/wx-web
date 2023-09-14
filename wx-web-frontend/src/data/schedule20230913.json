@@ -1,0 +1,99 @@
+[
+  {
+    "day": "Monday",
+    "course": [
+      {
+        "desc": "第一节",
+        "className": "5"
+      },
+      {
+        "desc": "第二节",
+        "className": "6"
+      },
+      {
+        "desc": "自习一",
+        "className": "6"
+      },
+      {
+        "desc": "自习二",
+        "className": "5"
+      }
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "course": [
+      {
+        "desc": "早读",
+        "className": "两"
+      },
+      {
+        "desc": "第一节",
+        "className": "5"
+      },
+      {
+        "desc": "第二节",
+        "className": "6"
+      }
+    ]
+  },
+  {
+    "day": "Wednesday",
+    "course": [
+      {
+        "desc": "第三节",
+        "className": "6"
+      },
+      {
+        "desc": "第五节",
+        "className": "5"
+      }
+    ]
+  },
+  {
+    "day": "Thursday",
+    "course": [
+      {
+        "desc": "早读",
+        "className": "两"
+      },
+      {
+        "desc": "第一节",
+        "className": "6"
+      },
+      {
+        "desc": "第二节",
+        "className": "5"
+      },
+      {
+        "desc": "自习一",
+        "className": "5"
+      },
+      {
+        "desc": "自习二",
+        "className": "5"
+      }
+    ]
+  },
+  {
+    "day": "Friday",
+    "course": [
+      {
+        "desc": "第四节",
+        "className": "5"
+      },
+      {
+        "desc": "第五节",
+        "className": "6"
+      }
+    ]
+  },
+  {
+    "day": "Saturday",
+    "course": []
+  },
+  {
+    "day": "Sunday",
+    "course": []
+  }
+]
