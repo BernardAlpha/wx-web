@@ -6,6 +6,9 @@ App.get('/', (req, res) => {
   res.send('Hello  World!');
 });
 
-App.listen(3000, () => {
-  console.log('启动');
+
+const port = process.env.PORT || 1003;
+
+App.listen(port, () => {
+  console.log('启动! 端口：', port);
 })
