@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node ./bin/www",
     "dev": "node -e ts --exec ts-node ./",
     "build": "tsc",
-    "serve": "node ./dist"
+    "start": "node ./dist"
   },
   "keywords": [],
   "author": "",
