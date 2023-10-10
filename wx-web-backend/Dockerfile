@@ -6,5 +6,4 @@ COPY . ./
 RUN npm install -g typescript
 RUN tsc -v
 RUN tsc
-# RUN npm run serve
 CMD [ "npm", "start" ]

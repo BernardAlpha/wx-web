@@ -4,16 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node -e ts --exec ts-node ./",
-    "build": "tsc",
+    "dev": "cross-env MYSQL_USERNAME=root MYSQL_PASSWORD=Ga3wqFWT MYSQL_ADDRESS=sh-cynosdbmysql-grp-669gjnfa.sql.tencentcdb.com:21978 ts-node ./src",
     "start": "node ./dist"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cross-env": "^7.0.3",
     "express": "^4.18.2",
+    "mysql2": "^3.6.1",
+    "ts-node": "^10.9.1",
     "tsc": "^2.0.4",
     "typescript": "^5.2.2"
   },
