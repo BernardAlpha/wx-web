@@ -7,12 +7,17 @@
         <view class="timing-text">我们在一起</view>
         <view class="timekeeper">
           <view class="t-day">
-            <text class="texts">已经</text><view class="number">{{ here.timekeeper.day }}</view><text class="texts">天啦</text><text v-if="here.timekeeper.day > 0"></text>
+            <text class="texts">已经</text>
+            <view class="number">{{ here.timekeeper.day }}</view><text class="texts">天啦</text><text
+              v-if="here.timekeeper.day > 0"></text>
           </view>
           <view class="t-others">
-            <text class="number">{{ here.timekeeper.hour }}</text><text>小时</text><text v-if="here.timekeeper.hour > 0"></text>
-            <text class="number">{{ here.timekeeper.min }}</text><text>分钟</text><text v-if="here.timekeeper.min > 0"></text>
-            <text class="number">{{ here.timekeeper.sec }}</text><text>秒</text><text v-if="here.timekeeper.sec > 0"></text>
+            <text class="number">{{ here.timekeeper.hour }}</text><text>小时</text><text
+              v-if="here.timekeeper.hour > 0"></text>
+            <text class="number">{{ here.timekeeper.min }}</text><text>分钟</text><text
+              v-if="here.timekeeper.min > 0"></text>
+            <text class="number">{{ here.timekeeper.sec }}</text><text>秒</text><text
+              v-if="here.timekeeper.sec > 0"></text>
           </view>
         </view>
       </view>
@@ -20,7 +25,7 @@
         <view class="module-title">
           DaysMatter
           <!-- <view class="notice-content"><text>距离暑假还有</text><view>{{ reverseCountdownDays }}</view><text>天</text></view> -->
-          <view class="notice-content">距离国庆还有<text class="number">{{ reverseCountdownDays }}</text>天哟</view>
+          <view class="notice-content">距离{{ latestEventInfo.eventName }}还有<text class="number">{{ reverseCountdownDays }}</text>天哟</view>
         </view>
       </view>
       <view class="module-box module-notice">
@@ -48,15 +53,17 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive, ref, watch } from "vue";
+import { computed, onMounted, reactive, ref, watch } from "vue";
 import daysMatter from '@/data/daysMatter.json'
 import website from '@/config/website'
 import scheduleItem from '@/pages/components/scheduleItem.vue'
 import navBar from '@/pages/components/navBar.vue'
 import invisibleModule from "@/pages/components/invisibleModule.vue";
+import { onLoad } from "@dcloudio/uni-app";
+import { countdownDayInfo } from './api'
 
 const hubValue = uni.getStorageSync("hubValue");
-if(hubValue !== '20221003') {
+if (hubValue !== '20221003') {
   uni.redirectTo({
     url: "/pages/test/hub",
   });
@@ -74,13 +81,20 @@ const here = reactive({
   },
   notice: '',
   menuList: [
-    {name: '菜单', icon: 'function-timetable3.png', url: '/pages/schedule/schedule'},
-    {name: '时间线', icon: 'function-timetable3.png', url: '/pages/timeline/timeline'},
-    {name: '刷题', icon: 'function-timetable3.png', url: '/pages/test/questions'}
+    { name: '菜单', icon: 'function-timetable3.png', url: '/pages/schedule/schedule' },
+    { name: '时间线', icon: 'function-timetable3.png', url: '/pages/timeline/timeline' },
+    { name: '刷题', icon: 'function-timetable3.png', url: '/pages/test/questions' }
   ]
 });
 
-const reverseCountdownDays = Math.ceil( ((new Date('2023-09-29')).getTime() - (new Date()).getTime()) / (1000 * 60 * 60 * 24) - 1)
+const latestEventInfo = ref({
+  eventDate: "2122-10-03",
+  eventName: "一百周年"
+})
+
+const reverseCountdownDays = computed(() => {
+  return Math.ceil(((new Date(latestEventInfo.value.eventDate)).getTime() - (new Date()).getTime()) / (1000 * 60 * 60 * 24) - 1)
+})
 
 let switchChecked = ref(false);
 let systemInfo = uni.getSystemInfoSync();  // 系统信息
@@ -98,6 +112,21 @@ let capsuleHeight = `${capsuleInfo.height * 2 / (systemInfo.windowWidth / 375)}r
 
 here.invisibleStyle = {
   "margin-top": `calc(${titleMarginTop} + ${capsuleHeight} + 30rpx)`
+}
+
+
+onLoad(() => {
+  getCountdownDayInfo()
+})
+
+const getCountdownDayInfo = () => {
+  countdownDayInfo().then((res: Array) => {
+    console.log('countdownDayInfo-res', res);
+    [latestEventInfo.value] = res.slice(-1);
+    console.log('latestEventInfo', latestEventInfo.value);
+  }).catch(err => {
+    console.log('countdownDayInfo-err', err);
+  })
 }
 
 const switchChange = () => {
@@ -143,33 +172,43 @@ const menuItemClick = (url) => {
   0% {
     transform: scale(0.8);
   }
+
   50% {
     transform: scale(1);
   }
+
   100% {
     transform: scale(0.8);
   }
 }
+
 .my-page {
   background: linear-gradient(0deg, $themePink, rgba(255, 255, 255, 0));
+
   .content {
     margin: 0rpx 30rpx 30rpx 30rpx;
     height: 100%;
+
     .module-timing {
       height: auto;
       text-align: center;
       color: #ff8585;
       font-size: 46rpx;
+
       .timing-text {
         padding-top: 10rpx;
       }
+
       .timekeeper {
         padding: 10rpx;
+
         .t-day {
           font-size: 46rpx;
+
           .texts {
             vertical-align: super;
           }
+
           .number {
             font-size: 140rpx;
             line-height: 120rpx;
@@ -178,29 +217,36 @@ const menuItemClick = (url) => {
             animation: heartbeat 1s infinite;
           }
         }
+
         .t-others {
           margin-top: 0rpx;
           font-size: 30rpx;
+
           .number {
             font-size: 38rpx;
           }
         }
       }
     }
+
     .module-days-matter {
       min-height: 0rpx;
+
       .notice-content {
         margin-top: 10rpx;
         font-size: 50rpx;
         color: #f7547d;
         text-align: center;
-          .number {
-            color: yellowgreen;
-          }
+
+        .number {
+          color: yellowgreen;
+        }
       }
     }
+
     .module-notice {
       min-height: 80rpx;
+
       .notice-content {
         margin-top: 10rpx;
         font-size: 50rpx;
@@ -208,19 +254,23 @@ const menuItemClick = (url) => {
         text-align: center;
       }
     }
+
     .module-timetable {
       min-height: 384rpx;
     }
+
     .module-menu {
       height: auto;
       border-radius: 20rpx;
       padding: 20rpx 0;
+
       .menu-box {
         display: inline-block;
         text-align: center;
         height: 117rpx;
         width: 117rpx;
         margin: 30rpx;
+
         // background: #ff8585;
         image {
           height: 80rpx;
@@ -228,6 +278,7 @@ const menuItemClick = (url) => {
           // border: 1rpx solid #aaaaaa;
           border-radius: 10rpx;
         }
+
         .menu-desc {
           font-size: 30rpx;
         }
@@ -235,5 +286,4 @@ const menuItemClick = (url) => {
     }
   }
 }
-
 </style>
