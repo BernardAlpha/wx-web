@@ -1,7 +1,7 @@
 import { createSSRApp } from "vue";
 import App from "./App.vue";
 
-import website from './config/website'
+import website from '@/config/website'
 import '@/styles/common.scss'
 
 uni.loadFontFace({

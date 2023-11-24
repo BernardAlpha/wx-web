@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <div id="console1">
+    </div>
+    <div id="console2">
+    </div>
+    <script>
+      const innerContent = navigator.userAgent
+      document.getElementById('console1').innerText = 'console1\n' + innerContent
+
+      const isMp = 'yes'
+      if (!(navigator.userAgent.toLowerCase().match(/miniprogram/i) || window.__wxjs_environment === 'miniprogram')) {
+        isMp = 'no'
+      }
+      document.getElementById('console1').innerText = 'console2\n' + isMp
+
+    </script>
+  </body>
+</html>

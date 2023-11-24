@@ -15,6 +15,13 @@
       }
     },
     {
+      "path": "pages/test/webview",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
       "path": "pages/index/index",
       "style": {
         "navigationBarTitleText": "",

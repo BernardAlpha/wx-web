@@ -83,7 +83,9 @@ const here = reactive({
   menuList: [
     { name: '菜单', icon: 'function-timetable3.png', url: '/pages/schedule/schedule' },
     { name: '时间线', icon: 'function-timetable3.png', url: '/pages/timeline/timeline' },
-    { name: '刷题', icon: 'function-timetable3.png', url: '/pages/test/questions' }
+    { name: '刷题', icon: 'function-timetable3.png', url: '/pages/test/questions' },
+    { name: 'webview', icon: 'function-timetable3.png', url: '/pages/test/webview' }
+
   ]
 });
 
