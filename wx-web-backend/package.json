@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env MYSQL_USERNAME=root MYSQL_PASSWORD=Ga3wqFWT MYSQL_ADDRESS=sh-cynosdbmysql-grp-669gjnfa.sql.tencentcdb.com:21978 ts-node ./src",
+    "dev": "cross-env MYSQL_USERNAME=root MYSQL_PASSWORD=ff238G8Q MYSQL_ADDRESS=sh-cynosdbmysql-grp-ayoomus0.sql.tencentcdb.com:23683 ts-node ./src",
     "start": "node ./dist"
   },
   "keywords": [],
