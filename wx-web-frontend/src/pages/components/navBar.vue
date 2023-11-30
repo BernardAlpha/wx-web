@@ -69,7 +69,7 @@ const goBack = () => {
 .nav-bar {
   .top-back {
     width: 100%;
-    background: linear-gradient(180deg, $themePink, rgba(255, 255, 255, 0));
+    background: linear-gradient(180deg, $themeColor, rgba(255, 255, 255, 0));
     position: fixed;
   }
   .nav-title {

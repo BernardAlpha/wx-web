@@ -25,7 +25,7 @@
         <view class="module-title">
           DaysMatter
           <!-- <view class="notice-content"><text>距离暑假还有</text><view>{{ reverseCountdownDays }}</view><text>天</text></view> -->
-          <view class="notice-content">距离{{ latestEventInfo.eventName }}还有<text class="number">{{ reverseCountdownDays }}</text>天哟</view>
+          <view class="notice-content">距离{{ latestEventInfo.name }}还有<text class="number">{{ reverseCountdownDays }}</text>天哟</view>
         </view>
       </view>
       <view class="module-box module-notice">
@@ -90,12 +90,12 @@ const here = reactive({
 });
 
 const latestEventInfo = ref({
-  eventDate: "2122-10-03",
-  eventName: "一百周年"
+  date: "2122-10-03",
+  name: "一百周年"
 })
 
 const reverseCountdownDays = computed(() => {
-  return Math.ceil(((new Date(latestEventInfo.value.eventDate)).getTime() - (new Date()).getTime()) / (1000 * 60 * 60 * 24) - 1)
+  return Math.ceil(((new Date(latestEventInfo.value.date)).getTime() - (new Date()).getTime()) / (1000 * 60 * 60 * 24) - 1)
 })
 
 let switchChecked = ref(false);
@@ -185,7 +185,7 @@ const menuItemClick = (url) => {
 }
 
 .my-page {
-  background: linear-gradient(0deg, $themePink, rgba(255, 255, 255, 0));
+  background: linear-gradient(0deg, $themeColor, rgba(255, 255, 255, 0));
 
   .content {
     margin: 0rpx 30rpx 30rpx 30rpx;

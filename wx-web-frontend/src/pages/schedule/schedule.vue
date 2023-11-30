@@ -91,7 +91,7 @@ const goBack = () => {
 .my-page {
   background: none;
   .content {
-    background: linear-gradient(0deg, $themePink, rgba(255, 255, 255, 0));
+    background: linear-gradient(0deg, $themeColor, rgba(255, 255, 255, 0));
     padding: 0rpx 30rpx 60rpx 30rpx;
     .module-timing {
       height: auto;
