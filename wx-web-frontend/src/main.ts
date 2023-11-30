@@ -12,7 +12,7 @@ uni.loadFontFace({
 
 // #ifdef MP-WEIXIN
 wx.cloud.init({
-  env: 'prod-8gbqt13c81eb5a4c', // 填入云托管环境ID
+  env: website.wxCloudrunID, // 填入云托管环境ID
 })
 //#endif
 
