@@ -1,5 +1,6 @@
 import express from 'express';
 import mysql from 'mysql2'
+import axios from 'axios';
 
 const Pollos = express();
 
@@ -25,6 +26,26 @@ Pollos.get('/events/latestEvent', (req, res) => {
     if (err) throw err;
     res.json(results);
   })
+});
+
+Pollos.post('/auth/wxLogin', async (req, res) => {
+  console.log('/auth/wxLogin--req',req.body);
+  const code = req.body.code || ''
+  try {
+    // 获取微信小程序用户的 openid 和 session_key
+    const wxRes = await axios.get('https://api.weixin.qq.com/sns/jscode2session', {
+      params: {
+        appid: 'wx2d0c03028e32da41',
+        secret: '5d5dc979fa601da1e4dff025a1af0540',
+        js_code: code,
+        grant_type: 'authorization_code',
+      },
+    });
+    res.json(wxRes);
+  } catch (error) {
+    console.error('登录失败', error);
+    res.status(500).json({ error: '登录失败' });
+  }
 });
 
 const port = process.env.PORT || 1003;
