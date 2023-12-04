@@ -1,6 +1,7 @@
 import express from 'express';
 import mysql from 'mysql2'
 import axios from 'axios';
+import bodyParser from 'body-parser';
 
 const Pollos = express();
 
@@ -49,6 +50,7 @@ Pollos.post('/auth/wxLogin', async (req, res) => {
 });
 
 const port = process.env.PORT || 1003;
+Pollos.use(bodyParser.json());
 
 Pollos.listen(port, () => {
   console.log('启动! 端口：', port);
