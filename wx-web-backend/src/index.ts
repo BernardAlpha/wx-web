@@ -20,16 +20,16 @@ Pollos.get('/', (req, res) => {
 });
 
 Pollos.get('/events/latestEvent', (req, res) => {
-  console.log('/events/latestEvent--req',req.query);
+  console.log('/events/latestEvent--req', req.query);
   sqlPool.query('select * from events', (err, results, fields) => {
-    console.log('results',results);
+    console.log('results', results);
     if (err) throw err;
     res.json(results);
   })
 });
 
 Pollos.post('/auth/wxLogin', async (req, res) => {
-  console.log('/auth/wxLogin--req',req.body);
+  console.log('/auth/wxLogin--req', req);
   const code = req.body.code || ''
   try {
     // 获取微信小程序用户的 openid 和 session_key
