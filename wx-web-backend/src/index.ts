@@ -59,13 +59,24 @@ Pollos.post('/auth/wxLogin', (req, res) => {
       console.log('user-select', results);
       if (err) throw err;
       if (results.length > 0) {    // 存在则返回用户信息及token
-        // res.json(JSON.stringify(results[0]))
         console.log('user-select-0', results[0]);
-        res.json(results[0])
+        res.json({code:'NICE', data:results[0]})
       } else {                     // 不存在先注册
         sqlPool.query(`INSERT INTO user (wx_openid) VALUES ('${openid}');`, (err, results: any, fields) => {
           console.log('user-insert', results);
           if (err) throw err;
+          sqlPool.query(`SELECT * FROM user WHERE wx_openid = '${openid}'`, (err, results: any, fields) => {
+            console.log('user-select', results);
+            if (err) throw err;
+            if (results.length > 0) {    // 存在则返回用户信息及token
+              console.log('user-select-2-0', results[0]);
+              res.json({code:'NICE', data:results[0]})
+            } else {                     // 不存在先注册
+              res.json({
+                code: 'OOPS'
+              })
+            }
+          })
         })
       }
     })
