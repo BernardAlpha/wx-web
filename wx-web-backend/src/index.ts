@@ -44,6 +44,9 @@ Pollos.post('/auth/wxLogin', (req, res) => {
       js_code: code,
       grant_type: 'authorization_code',
     },
+    httpsAgent: {
+      rejectUnauthorized: false,
+    },
   }).then(wxRes => {
     console.log('wxRes', wxRes);
     const openid = wxRes.data.openid;
@@ -72,7 +75,6 @@ Pollos.post('/auth/wxLogin', (req, res) => {
 
 const port = process.env.PORT || 1003;
 
-Pollos.use(express.json());
 Pollos.listen(port, () => {
   console.log('启动! 端口：', port);
 })
