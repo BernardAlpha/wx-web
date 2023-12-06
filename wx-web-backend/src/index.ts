@@ -3,6 +3,8 @@ import mysql from 'mysql2'
 import axios from 'axios';
 
 const Pollos = express();
+Pollos.use(express.urlencoded({ extended: true }));
+// Pollos.use(express.json());
 
 const { MYSQL_USERNAME, MYSQL_PASSWORD, MYSQL_ADDRESS = "" } = process.env;
 const [MYSQL_HOST, MYSQL_PORT] = MYSQL_ADDRESS.split(":");
