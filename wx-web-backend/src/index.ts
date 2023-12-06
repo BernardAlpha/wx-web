@@ -33,6 +33,7 @@ Pollos.get('/events/latestEvent', (req, res) => {
 Pollos.post('/auth/wxLogin', (req, res) => {
   console.log('/auth/wxLogin--req', req);
   console.log('/auth/wxLogin--req.body', req.body);
+  console.log('/auth/wxLogin--req.body.code', req.body.code);
   console.log('/auth/wxLogin--res', res);
   const code = req.body.code || ''
   // 获取微信小程序用户的 openid 和 session_key
