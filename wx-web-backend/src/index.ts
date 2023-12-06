@@ -17,6 +17,12 @@ const sqlPool = mysql.createPool({
   database: 'mailan_pollos'
 });
 
+const axiosIns = axios.create({
+  httpsAgent: {
+    rejectUnauthorized: false,
+  },
+});
+
 Pollos.get('/', (req, res) => {
   res.send('Hello  World!');
 });
@@ -37,16 +43,13 @@ Pollos.post('/auth/wxLogin', (req, res) => {
   console.log('/auth/wxLogin--res', res);
   const code = req.body.code || ''
   // 获取微信小程序用户的 openid 和 session_key
-  axios.get('https://api.weixin.qq.com/sns/jscode2session', {
+  axiosIns.get('https://api.weixin.qq.com/sns/jscode2session', {
     params: {
       appid: 'wx2d0c03028e32da41',
       secret: '5d5dc979fa601da1e4dff025a1af0540',
       js_code: code,
       grant_type: 'authorization_code',
-    },
-    httpsAgent: {
-      rejectUnauthorized: false,
-    },
+    }
   }).then(wxRes => {
     console.log('wxRes', wxRes);
     const openid = wxRes.data.openid;
