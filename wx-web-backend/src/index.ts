@@ -54,7 +54,7 @@ Pollos.post('/auth/wxLogin', (req, res) => {
     const openid = wxRes.data.openid;
     const sessionKey = wxRes.data.session_key;
     // 先查询是否存在该用户
-    sqlPool.query(`SELECT * FROM user WHERE wx_openid = '${openid}'`, (err, results: Array<object>, fields) => {
+    sqlPool.query(`SELECT * FROM user WHERE wx_openid = '${openid}'`, (err, results: any, fields) => {
       console.log('user-select', results);
       if (err) throw err;
       if (results.length > 0) {    // 存在则返回用户信息及token
@@ -62,7 +62,7 @@ Pollos.post('/auth/wxLogin', (req, res) => {
         console.log('user-select-0', results[0]);
         res.send(results[0])
       } else {                     // 不存在先注册
-        sqlPool.query(`INSERT INTO user (wx_openid) VALUES ('${openid}');`, (err, results: Array<object>, fields) => {
+        sqlPool.query(`INSERT INTO user (wx_openid) VALUES ('${openid}');`, (err, results: any, fields) => {
           console.log('user-insert', results);
           if (err) throw err;
         })
