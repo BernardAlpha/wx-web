@@ -49,7 +49,7 @@ Pollos.post('/auth/wxLogin', (req, res) => {
     res.json(wxRes);
   }).catch(wxErr => {
     console.error('登录失败', wxErr);
-    res.status(500).json({ wxErr: '登录失败' });
+    res.status(500).json({ wxErr: '登录失败\n' + wxErr });
   });
 
 });
