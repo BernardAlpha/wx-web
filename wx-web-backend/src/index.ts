@@ -50,7 +50,8 @@ Pollos.post('/auth/wxLogin', (req, res) => {
       rejectUnauthorized: false
     })
   }).then(wxRes => {
-    console.log('wxRes', wxRes);
+    console.log(' ', wxRes);
+    console.log('wxRes.data', wxRes.data);
     const openid = wxRes.data.openid;
     const sessionKey = wxRes.data.session_key;
     // 先查询是否存在该用户
@@ -60,7 +61,7 @@ Pollos.post('/auth/wxLogin', (req, res) => {
       if (results.length > 0) {    // 存在则返回用户信息及token
         // res.json(JSON.stringify(results[0]))
         console.log('user-select-0', results[0]);
-        res.send(results[0])
+        res.json(results[0])
       } else {                     // 不存在先注册
         sqlPool.query(`INSERT INTO user (wx_openid) VALUES ('${openid}');`, (err, results: any, fields) => {
           console.log('user-insert', results);
@@ -68,7 +69,6 @@ Pollos.post('/auth/wxLogin', (req, res) => {
         })
       }
     })
-    res.json(JSON.stringify(wxRes));
   }).catch(wxErr => {
     console.log('登录失败', wxErr);
     res.status(500).json({ wxErr: '登录失败\n' + wxErr });
