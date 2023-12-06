@@ -28,7 +28,7 @@ Pollos.get('/events/latestEvent', (req, res) => {
   sqlPool.query('select * from events', (err, results, fields) => {
     console.log('results', results);
     if (err) throw err;
-    res.json(results);
+    res.json(JSON.stringify(results));
   })
 });
 
@@ -58,7 +58,7 @@ Pollos.post('/auth/wxLogin', (req, res) => {
       console.log('user-select', results);
       if (err) throw err;
       if (results.length > 0) {    // 存在则返回用户信息及token
-        res.json(results[0])
+        res.json(JSON.stringify(results[0]))
       } else {                     // 不存在先注册
         sqlPool.query(`INSERT INTO user (wx_openid) VALUES ('${openid}');`, (err, results: Array<object>, fields) => {
           console.log('user-insert', results);
@@ -66,8 +66,7 @@ Pollos.post('/auth/wxLogin', (req, res) => {
         })
       }
     })
-
-    res.json(wxRes);
+    res.json(JSON.stringify(wxRes));
   }).catch(wxErr => {
     console.log('登录失败', wxErr);
     res.status(500).json({ wxErr: '登录失败\n' + wxErr });
