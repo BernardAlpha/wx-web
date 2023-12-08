@@ -1,6 +1,8 @@
-import PoTruck from '@/utils/poTruck';
+import express from 'express';
 import SQLPool from '@/utils/sqlPool';
 import Rep from '@/utils/response'
+
+const PoTruck = express.Router();
 
 PoTruck.post('/events/latestEvent', (req, res) => {
   const apiUniCode = '0002';

@@ -1,8 +1,10 @@
-import PoTruck from '@/utils/poTruck';
+import express from 'express';
 import SQLPool from '@/utils/sqlPool';
 import Rep from '@/utils/response'
 import axios from 'axios';
 import https from 'https';
+
+const PoTruck = express.Router();
 
 PoTruck.post('/auth/wxLogin', (req, res) => {
   const apiUniCode = '0001';
