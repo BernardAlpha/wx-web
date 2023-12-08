@@ -1,8 +1,8 @@
 {
   "name": "wx-web-frontend",
   "version": "1.0.1",
-	"private": true,
-	"description": "Based on uni-app",
+  "private": true,
+  "description": "Based on uni-app",
   "scripts": {
     "dev:app": "uni -p app",
     "dev:app-android": "uni -p app-android",

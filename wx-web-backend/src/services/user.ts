@@ -1,10 +1,12 @@
 import PoTruck from '@/utils/poTruck';
 import SQLPool from '@/utils/sqlPool';
+import Rep from '@/utils/response'
 import axios from 'axios';
 import https from 'https';
 
 PoTruck.post('/auth/wxLogin', (req, res) => {
-  const code = req.body.code || ''
+  const apiUniCode = '0001';
+  const code = req.body.code || '';
   // 获取微信小程序用户的 openid 和 session_key
   axios.get('https://api.weixin.qq.com/sns/jscode2session', {
     params: {
@@ -30,7 +32,7 @@ PoTruck.post('/auth/wxLogin', (req, res) => {
           if (err) throw err;
           if (results.length > 0) {    // 存在则返回用户信息及token
             console.log('user-select-0', results[0]);
-            res.json({ code: 'NICE', data: results[0] })
+            Rep.nice(res, results[0])
           } else {                     // 不存在先注册
             SQLPool.query(`INSERT INTO user (wx_openid) VALUES ('${openid}');`, (err, results: any, fields) => {
               console.log('user-insert', results);
@@ -40,7 +42,7 @@ PoTruck.post('/auth/wxLogin', (req, res) => {
                 if (err) throw err;
                 if (results.length > 0) {    // 存在则返回用户信息及token
                   console.log('user-select-2-0', results[0]);
-                  res.json({ code: 'NICE', data: results[0] })
+                  Rep.nice(res, results[0])
                 } else {                     // 不存在先注册
                   throw 'No one was found.'
                 }
@@ -49,22 +51,13 @@ PoTruck.post('/auth/wxLogin', (req, res) => {
           }
         })
       } catch (err) {
-        res.json({
-          code: 'OOPS',
-          tips: err
-        })
+        Rep.oops(res, `${apiUniCode}-01`, err)
       }
     } else {
-      res.json({
-        code: 'OOPS',
-        tips: `[${wxRes.data.errcode}]${wxRes.data.errmsg}`
-      })
+      Rep.oops(res, `${apiUniCode}-02`, `[${wxRes.data.errcode}]${wxRes.data.errmsg}`)
     }
   }).catch(wxErr => {
-    res.json({
-      code: 'OOPS',
-      tips: wxErr
-    })
+    Rep.oops(res, `${apiUniCode}-03`, wxErr)
   });
 });
 

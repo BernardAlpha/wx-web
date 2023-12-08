@@ -59,15 +59,9 @@ import website from '@/config/website'
 import scheduleItem from '@/pages/components/scheduleItem.vue'
 import navBar from '@/pages/components/navBar.vue'
 import invisibleModule from "@/pages/components/invisibleModule.vue";
-import { onLoad } from "@dcloudio/uni-app";
+import { onLoad, onShow } from "@dcloudio/uni-app";
 import { countdownDayInfo } from './api'
-
-const hubValue = uni.getStorageSync("hubValue");
-if (hubValue !== '20221003') {
-  uni.redirectTo({
-    url: "/pages/test/hub",
-  });
-}
+import { wxLogin } from "@/utils/login";
 
 const here = reactive({
   invisibleStyle: {},
@@ -119,6 +113,14 @@ here.invisibleStyle = {
 
 onLoad(() => {
   getCountdownDayInfo()
+})
+
+onShow(() => {
+  wxLogin().then((res) => {
+    console.log('res', res);
+  }).catch((err) => {
+    console.log('err', err);
+  });
 })
 
 const getCountdownDayInfo = () => {
