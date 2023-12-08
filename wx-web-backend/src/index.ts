@@ -18,7 +18,6 @@ const sqlPool = mysql.createPool({
   database: 'mailan_pollos'
 });
 
-
 Pollos.get('/', (req, res) => {
   res.send('Hello  World!');
 });
@@ -33,10 +32,6 @@ Pollos.get('/events/latestEvent', (req, res) => {
 });
 
 Pollos.post('/auth/wxLogin', (req, res) => {
-  console.log('/auth/wxLogin--req', req);
-  console.log('/auth/wxLogin--req.body', req.body);
-  console.log('/auth/wxLogin--req.body.code', req.body.code);
-  console.log('/auth/wxLogin--res', res);
   const code = req.body.code || ''
   // 获取微信小程序用户的 openid 和 session_key
   axios.get('https://api.weixin.qq.com/sns/jscode2session', {
@@ -52,37 +47,52 @@ Pollos.post('/auth/wxLogin', (req, res) => {
   }).then(wxRes => {
     console.log(' ', wxRes);
     console.log('wxRes.data', wxRes.data);
-    const openid = wxRes.data.openid;
-    const sessionKey = wxRes.data.session_key;
-    // 先查询是否存在该用户
-    sqlPool.query(`SELECT * FROM user WHERE wx_openid = '${openid}'`, (err, results: any, fields) => {
-      console.log('user-select', results);
-      if (err) throw err;
-      if (results.length > 0) {    // 存在则返回用户信息及token
-        console.log('user-select-0', results[0]);
-        res.json({code:'NICE', data:results[0]})
-      } else {                     // 不存在先注册
-        sqlPool.query(`INSERT INTO user (wx_openid) VALUES ('${openid}');`, (err, results: any, fields) => {
-          console.log('user-insert', results);
+    if (wxRes.data.openid && wxRes.data.session_key) {
+      const openid = wxRes.data.openid;
+      const sessionKey = wxRes.data.session_key;
+      try {
+        // 先查询是否存在该用户
+        sqlPool.query(`SELECT * FROM user WHERE wx_openid = '${openid}'`, (err, results: any, fields) => {
+          console.log('user-select', results);
           if (err) throw err;
-          sqlPool.query(`SELECT * FROM user WHERE wx_openid = '${openid}'`, (err, results: any, fields) => {
-            console.log('user-select', results);
-            if (err) throw err;
-            if (results.length > 0) {    // 存在则返回用户信息及token
-              console.log('user-select-2-0', results[0]);
-              res.json({code:'NICE', data:results[0]})
-            } else {                     // 不存在先注册
-              res.json({
-                code: 'OOPS'
+          if (results.length > 0) {    // 存在则返回用户信息及token
+            console.log('user-select-0', results[0]);
+            res.json({ code: 'NICE', data: results[0] })
+          } else {                     // 不存在先注册
+            sqlPool.query(`INSERT INTO user (wx_openid) VALUES ('${openid}');`, (err, results: any, fields) => {
+              console.log('user-insert', results);
+              if (err) throw err;
+              sqlPool.query(`SELECT * FROM user WHERE wx_openid = '${openid}'`, (err, results: any, fields) => {
+                console.log('user-select', results);
+                if (err) throw err;
+                if (results.length > 0) {    // 存在则返回用户信息及token
+                  console.log('user-select-2-0', results[0]);
+                  res.json({ code: 'NICE', data: results[0] })
+                } else {                     // 不存在先注册
+                  throw 'No one was found.'
+                }
               })
-            }
-          })
+            })
+          }
+        })
+      } catch (err) {
+        res.json({
+          code: 'OOPS',
+          tips: err
         })
       }
-    })
+    } else {
+      res.json({
+        code: 'OOPS',
+        tips: `[${wxRes.data.errcode}]${wxRes.data.errmsg}`
+      })
+    }
   }).catch(wxErr => {
     console.log('登录失败', wxErr);
-    res.status(500).json({ wxErr: '登录失败\n' + wxErr });
+    res.json({
+      code: 'OOPS',
+      tips: wxErr
+    })
   });
 
 });
