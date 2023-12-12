@@ -1,6 +1,6 @@
 import express from 'express';
-import daysMatter from '@/services/daysMatter';
-import user from '@/services/user';
+import daysMatter from './daysMatter';
+import user from './user';
 
 const PoTruck = express.Router();
 

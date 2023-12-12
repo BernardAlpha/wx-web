@@ -1,5 +1,5 @@
-import Pollos from '@/utils/pollos';
-import entrance from '@/services/entrance';
+import Pollos from './utils/pollos';
+import entrance from './services/entrance';
 
 Pollos.use('', entrance)
 

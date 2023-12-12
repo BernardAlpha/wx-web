@@ -1,6 +1,6 @@
 import express from 'express';
-import SQLPool from '@/utils/sqlPool';
-import Rep from '@/utils/response'
+import SQLPool from '../utils/sqlPool';
+import Rep from '../utils/response'
 import axios from 'axios';
 import https from 'https';
 
