@@ -49,6 +49,7 @@
         </view>
       </view>
     </scroll-view>
+    <tabbar :selectedIndex="0"></tabbar>
   </view>
 </template>
 
@@ -59,6 +60,7 @@ import website from '@/config/website'
 import scheduleItem from '@/pages/components/scheduleItem.vue'
 import navBar from '@/pages/components/navBar.vue'
 import invisibleModule from "@/pages/components/invisibleModule.vue";
+import tabbar from "@/pages/components/tabbar.vue";
 import { onLoad, onShow } from "@dcloudio/uni-app";
 import { countdownDayInfo } from './api'
 import { wxLogin } from "@/utils/login";
@@ -125,11 +127,7 @@ onShow(() => {
 
 const getCountdownDayInfo = () => {
   countdownDayInfo().then((res: Array) => {
-    console.log('countdownDayInfo-res', res);
-    [latestEventInfo.value] = res.slice(-1);
-    console.log('latestEventInfo', latestEventInfo.value);
-  }).catch(err => {
-    console.log('countdownDayInfo-err', err);
+    latestEventInfo.value = res;
   })
 }
 

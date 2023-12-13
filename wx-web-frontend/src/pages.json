@@ -1,7 +1,7 @@
 {
   "pages": [
     {
-      "path": "pages/index/index",
+      "path": "pages/home/homePage",
       "style": {
         "navigationBarTitleText": "",
         "navigationStyle": "custom"
@@ -41,7 +41,7 @@
         "navigationBarTitleText": "",
         "navigationStyle": "custom"
       }
-    },
+    }
   ],
   "globalStyle": {
     "navigationBarTextStyle": "black",
