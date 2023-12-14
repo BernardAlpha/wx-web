@@ -8,11 +8,11 @@ import { base64Encode, base64Decode } from '../utils/common';
 const PoTruck = express.Router();
 
 const PHEAD = 'hErMAnOs';
-const PDURATION = 30 * 60 * 1000;  // token有效期
+const PDURATION = 1 * 60 * 1000;  // token有效期(分钟 * 60 * 1000)
 
 PoTruck.post('/auth/wxLogin', (req, res) => {
   const apiUniCode = '0001';
-  const code = req.body.code || '';
+  const code = req.body.data.code || '';
   // 获取微信小程序用户的 openid 和 session_key
   axios.get('https://api.weixin.qq.com/sns/jscode2session', {
     params: {
@@ -74,6 +74,24 @@ PoTruck.post('/auth/wxLogin', (req, res) => {
   });
 });
 
+PoTruck.post('/user/userInfo', (req, res) => {
+  const apiUniCode = '0003';
+  console.log('/user/userInfo--req', req.body);
+  if (!authToken(req.body.token, req.body.session, apiUniCode, res)) {
+    return
+  }
+  try {
+    const sqlQuery = `SELECT name, gender, phone_number AS phoneNumber, wx_openid AS wxOpenid FROM user WHERE wx_openid = '${req.query.openid}'`;
+    SQLPool.query(sqlQuery, (err, results) => {
+      console.log('latestEvent-results', results);
+      if (err) throw err;
+      Rep.nice(res, results[0])
+    })
+  } catch (err) {
+    Rep.oops(res, `${apiUniCode}-01`, err)
+  }
+});
+
 const genToken = (openid: string, sessionKey: string) => {
   const currentTime = 't' + new Date().getTime().toString();
   return encrytFn(PHEAD + openid + sessionKey + currentTime);
@@ -107,7 +125,7 @@ const deSaltFn = (no: number) => {
   return (no + 7) / 2 - 9;
 }
 
-const authToken = (token: string, sessionKey: string) => {
+const authToken = (token: string, sessionKey: string, apiUniCode: string, res) => {
   const deToken = decrytFn(token);
   console.log('deToken', deToken);
   const currentTime = new Date().getTime();
@@ -118,6 +136,7 @@ const authToken = (token: string, sessionKey: string) => {
   if (tokenHead === PHEAD && tokenSessionIndex >= 0 && timeInterval >= 0 && timeInterval < PDURATION) {
     return true;
   } else {
+    Rep.oops(res, `${apiUniCode}-01`, 'Invalid Token!')
     return false;
   }
 }
