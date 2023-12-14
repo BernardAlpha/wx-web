@@ -2,8 +2,8 @@ const Rep = {
   nice: (res, data) => {
     return res.json({ code: 'PLS200', data: data })
   },
-  oops: (res, code: string, errmsg: string) => {
-    return res.json({ code: code, errmsg: errmsg })
+  oops: (res, code: string, errMsg: string) => {
+    return res.json({ code: code, errMsg: errMsg })
   }
 }
 
