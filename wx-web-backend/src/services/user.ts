@@ -140,7 +140,7 @@ const authToken = (token: string, sessionKey: string, apiUniCode: string, res) =
   if (tokenSessionIndex < 0) {
     errMsg = 'Invalid Session!';
   }
-  if (timeInterval < 0 && timeInterval > PDURATION) {
+  if (timeInterval < 0 || timeInterval > PDURATION) {
     errMsg = 'Invalid timeInterval!';
   }
   if (errMsg !== '') {
