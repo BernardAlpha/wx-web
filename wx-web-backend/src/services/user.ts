@@ -81,7 +81,7 @@ PoTruck.post('/user/userInfo', (req, res) => {
     return
   }
   try {
-    const sqlQuery = `SELECT name, gender, phone_number AS phoneNumber, wx_openid AS wxOpenid FROM user WHERE wx_openid = '${req.body.data.openid}'`;
+    const sqlQuery = `SELECT name, gender, phone_number AS phoneNumber, wx_openid AS wxOpenid FROM user WHERE wx_openid = '${req.body.data.wxOpenid}'`;
     SQLPool.query(sqlQuery, (err, results) => {
       console.log('latestEvent-results', results);
       if (err) throw err;
@@ -141,7 +141,7 @@ const authToken = (token: string, sessionKey: string, apiUniCode: string, res) =
     errMsg = 'Invalid Session!';
   }
   if (timeInterval < 0 || timeInterval > PDURATION) {
-    errMsg = 'Invalid timeInterval!';
+    errMsg = 'Token Outtime!';
   }
   if (errMsg !== '') {
     Rep.oops(res, `${apiUniCode}-PLS411`, errMsg)
