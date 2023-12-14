@@ -81,7 +81,7 @@ PoTruck.post('/user/userInfo', (req, res) => {
     return
   }
   try {
-    const sqlQuery = `SELECT name, gender, phone_number AS phoneNumber, wx_openid AS wxOpenid FROM user WHERE wx_openid = '${req.query.openid}'`;
+    const sqlQuery = `SELECT name, gender, phone_number AS phoneNumber, wx_openid AS wxOpenid FROM user WHERE wx_openid = '${req.body.data.openid}'`;
     SQLPool.query(sqlQuery, (err, results) => {
       console.log('latestEvent-results', results);
       if (err) throw err;
@@ -133,11 +133,21 @@ const authToken = (token: string, sessionKey: string, apiUniCode: string, res) =
   const tokenSessionIndex = deToken.indexOf(sessionKey);
   const tokenTime = Number(deToken.substring(deToken.lastIndexOf('t') + 1, deToken.length))
   const timeInterval = currentTime - tokenTime;
-  if (tokenHead === PHEAD && tokenSessionIndex >= 0 && timeInterval >= 0 && timeInterval < PDURATION) {
-    return true;
-  } else {
-    Rep.oops(res, `${apiUniCode}-01`, 'Invalid Token!')
+  let errMsg = '';
+  if (tokenHead !== PHEAD) {
+    errMsg = 'Invalid Token!';
+  }
+  if (tokenSessionIndex < 0) {
+    errMsg = 'Invalid Session!';
+  }
+  if (timeInterval < 0 && timeInterval > PDURATION) {
+    errMsg = 'Invalid timeInterval!';
+  }
+  if (errMsg !== '') {
+    Rep.oops(res, `${apiUniCode}-PLS411`, errMsg)
     return false;
+  } else {
+    return true;
   }
 }
 
