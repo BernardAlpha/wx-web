@@ -1,5 +1,5 @@
 <template>
-  <view class="my-page">
+  <view class="los-page my-page">
     <nav-bar pageName="麦兰镇炸鸡店" :titleId="here.pageName" :canBack="false" topShadowHeight="360rpx"></nav-bar>
     <scroll-view class="content" :show-scrollbar="false" :scroll-y="true">
       <invisible-module></invisible-module>
@@ -115,14 +115,15 @@ here.invisibleStyle = {
 
 onLoad(() => {
   getCountdownDayInfo()
-})
-
-onShow(() => {
   wxLogin().then((res) => {
     console.log('res', res);
   }).catch((err) => {
     console.log('err', err);
   });
+})
+
+onShow(() => {
+
 })
 
 const getCountdownDayInfo = () => {

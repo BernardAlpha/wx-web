@@ -1,5 +1,5 @@
 <template>
-  <view class="my-page my-page-timeline my-page-questions">
+  <view class="los-page my-page-timeline my-page-questions">
     <!-- <view class="content"> -->
     <scroll-view
       class="content"

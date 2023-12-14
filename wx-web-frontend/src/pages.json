@@ -1,7 +1,28 @@
 {
   "pages": [
     {
+      "path": "pages/userCenter/me",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
       "path": "pages/home/homePage",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/gourd/gourd",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/silkBag/silkBag",
       "style": {
         "navigationBarTitleText": "",
         "navigationStyle": "custom"
@@ -43,6 +64,30 @@
       }
     }
   ],
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/home/homePage",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/silkBag/silkBag",
+        "text": "锦囊"
+      },
+      {
+        "pagePath": "pages/gourd/gourd",
+        "text": "葫芦"
+      },
+      {
+        "pagePath": "pages/userCenter/me",
+        "text": "我的"
+      }
+    ]
+  },
   "globalStyle": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",

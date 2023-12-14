@@ -28,45 +28,42 @@ const selectedIndex = ref(props.selectedIndex);
 
 const list = ref(
   [{
-    name: '首页',
-    path: 'pages/home/homePage',
+    name: '首页',  // home
+    path: '/pages/home/homePage',
     iconPath: '/public/tabbar/hamburger.svg'
   }, {
-    name: '锦囊',
-    path: 'pages/home/homePage',
+    name: '锦囊',  // silkBag
+    path: '/pages/silkBag/silkBag',
     iconPath: '/public/tabbar/jinnang.svg'
   }, {
-    name: '葫芦',
-    path: 'pages/home/homePage',
+    name: '葫芦',  // gourd
+    path: '/pages/gourd/gourd',
     iconPath: '/public/tabbar/hulu.svg'
   }, {
-    name: '我的',
-    path: 'pages/home/homePage',
+    name: '我的',  // me
+    path: '/pages/userCenter/me',
     iconPath: '/public/tabbar/sheep.svg'
   }]
 )
 
 const tabbarClick = (index: number) => {
-  selectedIndex.value = index;
-  const temp = JSON.parse(JSON.stringify(list.value));
-  list.value = [];
-  nextTick(() => {
-    list.value = temp;
-  })
+  uni.switchTab({url: list.value[index].path})
 }
 </script>
 
 <style lang="scss" scoped>
 .los-tabbar {
   width: 100%;
-  height: 160rpx;
+  height: 170rpx;
   display: flex;
   position: fixed;
   bottom: 0;
   justify-content: space-between;
   background-color: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px);
-
+  backdrop-filter: blur(10rpx);
+  box-shadow: 0rpx -6rpx 10rpx rgba(0, 0, 0, 0.1);
+  // border-top-right-radius: 40rpx;
+  // border-top-left-radius: 40rpx;
   .los-tabbar-item {
     width: -webkit-fill-available;
     display: flex;

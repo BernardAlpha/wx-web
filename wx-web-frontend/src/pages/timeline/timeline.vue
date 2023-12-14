@@ -1,5 +1,5 @@
 <template>
-  <view class="my-page my-page-timeline">
+  <view class="los-page my-page-timeline">
     <!-- <view class="content"> -->
     <scroll-view class="content" :show-scrollbar="false" :scroll-y="true">
       <invisible-module></invisible-module>
