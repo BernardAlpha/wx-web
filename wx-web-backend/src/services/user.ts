@@ -1,10 +1,14 @@
 import express from 'express';
 import SQLPool from '../utils/sqlPool';
-import Rep from '../utils/response'
+import Rep from '../utils/response';
 import axios from 'axios';
 import https from 'https';
+import { base64Encode, base64Decode } from '../utils/common';
 
 const PoTruck = express.Router();
+
+const PHEAD = 'hErMAnOs';
+const PDURATION = 30 * 60 * 1000;  // token有效期
 
 PoTruck.post('/auth/wxLogin', (req, res) => {
   const apiUniCode = '0001';
@@ -34,7 +38,7 @@ PoTruck.post('/auth/wxLogin', (req, res) => {
           if (err) throw err;
           if (results.length > 0) {    // 存在则返回用户信息及token
             console.log('user-select-0', results[0]);
-            Rep.nice(res, results[0])
+            Rep.nice(res, genData(results[0]));
           } else {                     // 不存在先注册
             SQLPool.query(`INSERT INTO user (wx_openid) VALUES ('${openid}');`, (err, results: any, fields) => {
               console.log('user-insert', results);
@@ -44,23 +48,78 @@ PoTruck.post('/auth/wxLogin', (req, res) => {
                 if (err) throw err;
                 if (results.length > 0) {    // 存在则返回用户信息及token
                   console.log('user-select-2-0', results[0]);
-                  Rep.nice(res, results[0])
+                  Rep.nice(res, genData(results[0]));
                 } else {                     // 不存在先注册
-                  throw 'No one was found.'
+                  throw 'No one was found.';
                 }
               })
             })
           }
         })
       } catch (err) {
-        Rep.oops(res, `${apiUniCode}-01`, err)
+        Rep.oops(res, `${apiUniCode}-01`, err);
+      }
+      const genData = (userData) => {
+        return {
+          session: sessionKey,
+          token: genToken(openid, sessionKey),
+          userData: userData
+        }
       }
     } else {
       Rep.oops(res, `${apiUniCode}-02`, `[${wxRes.data.errcode}]${wxRes.data.errmsg}`)
     }
   }).catch(wxErr => {
-    Rep.oops(res, `${apiUniCode}-03`, wxErr)
+    Rep.oops(res, `${apiUniCode}-03`, wxErr);
   });
 });
+
+const genToken = (openid: string, sessionKey: string) => {
+  const currentTime = 't' + new Date().getTime().toString();
+  return encrytFn(PHEAD + openid + sessionKey + currentTime);
+}
+
+const encrytFn = (str: string) => {
+  let encodedArray = [];
+  for (let i = 0; i < str.length; i++) {
+    const char = str[i];
+    const charCode = char.charCodeAt(0);
+    encodedArray.push(saltFn(charCode));
+  }
+  return base64Encode(JSON.stringify(encodedArray));
+}
+
+const decrytFn = (str: string) => {
+  const decodeArry: Array<number> = JSON.parse(base64Decode(str));
+  let decodestr = '';
+  for (let i = 0; i < decodeArry.length; i++) {
+    const num = decodeArry[i];
+    String.fromCodePoint(deSaltFn(num))
+    decodestr = decodestr + String.fromCodePoint(deSaltFn(num));
+  }
+  return decodestr;
+}
+
+const saltFn = (no: number) => {
+  return (no + 9) * 2 - 7;
+}
+const deSaltFn = (no: number) => {
+  return (no + 7) / 2 - 9;
+}
+
+const authToken = (token: string, sessionKey: string) => {
+  const deToken = decrytFn(token);
+  console.log('deToken', deToken);
+  const currentTime = new Date().getTime();
+  const tokenHead = deToken.substring(0, PHEAD.length);
+  const tokenSessionIndex = deToken.indexOf(sessionKey);
+  const tokenTime = Number(deToken.substring(deToken.lastIndexOf('t') + 1, deToken.length))
+  const timeInterval = currentTime - tokenTime;
+  if (tokenHead === PHEAD && tokenSessionIndex >= 0 && timeInterval >= 0 && timeInterval < PDURATION) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 export default PoTruck;
