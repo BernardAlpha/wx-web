@@ -1,5 +1,5 @@
 <template>
-  <view class="my-page">
+  <view class="los-page schedule-page">
     <view class="content">
       <invisible-module></invisible-module>
       <view v-for="(item, index) in here.weekList" class="module-box module-timetable" :key="index"
@@ -88,7 +88,7 @@ const goBack = () => {
 
 <style lang="scss" scoped>
 @import '@/styles/variables.scss';
-.my-page {
+.schedule-page {
   background: none;
   .content {
     background: linear-gradient(0deg, $themeColor, rgba(255, 255, 255, 0));

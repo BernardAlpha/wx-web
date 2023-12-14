@@ -9,7 +9,7 @@
     >
       <invisible-module></invisible-module>
 
-      <view class="question">
+      <view class="question" v-if="questionList.length > 0">
         <view class="item type">{{
           `${currentQuestion[0]} (${currentIndex + 1}/${questionList.length})`
         }}</view>
@@ -191,13 +191,24 @@
 import { ref, computed, watch } from "vue";
 import navBar from "@/pages/components/navBar.vue";
 import invisibleModule from "@/pages/components/invisibleModule.vue";
-import questionList from "@/data/questionList.json";
+// import questionList from "@/data/questionList.json";
 import { onLoad } from "@dcloudio/uni-app";
+import { req } from '@/utils/request';
+import website from '@/config/website';
 
-// console.log(questionList);
+
+const questionList = ref([]);
+
+uni.showLoading();
+req.FETCH(website.staticPrefix + '/public/data/questionList.json').then(res => {
+  questionList.value = res;
+  genTable();
+  uni.hideLoading();
+});
+
 const currentIndex = ref(0);
 const currentQuestion = computed(() => {
-  return questionList[currentIndex.value];
+  return questionList.value[currentIndex.value];
 });
 const showAnwser = ref(false);
 const isStepClick = ref(false);
@@ -214,7 +225,6 @@ watch(
 
 onLoad(() => {
   currentIndex.value = uni.getStorageSync("questionIndex") || 0;
-  genTable();
 });
 
 const questionClick = () => {
@@ -227,7 +237,7 @@ const questionClick = () => {
 
   if (showAnwser.value || alwaysShowAnwser.value) {
     showAnwser.value = false;
-    if (currentIndex.value >= questionList.length - 1) {
+    if (currentIndex.value >= questionList.value.length - 1) {
       return;
     }
     currentIndex.value++;
@@ -250,13 +260,13 @@ const scont = ref(0);
 const mscont = ref(0);
 const jcont = ref(0);
 const genTable = () => {
-  for (let i = 0; i < questionList.length; i++) {
+  for (let i = 0; i < questionList.value.length; i++) {
     // console.log("i", i);
-    if (questionList[i][0] === "单选题") {
+    if (questionList.value[i][0] === "单选题") {
       scont.value++;
-    } else if (questionList[i][0] === "多选题") {
+    } else if (questionList.value[i][0] === "多选题") {
       mscont.value++;
-    } else if (questionList[i][0] === "判断题") {
+    } else if (questionList.value[i][0] === "判断题") {
       jcont.value++;
     }
   }

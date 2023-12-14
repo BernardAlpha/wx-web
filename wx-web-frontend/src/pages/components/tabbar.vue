@@ -62,8 +62,8 @@ const tabbarClick = (index: number) => {
   background-color: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(10rpx);
   box-shadow: 0rpx -6rpx 10rpx rgba(0, 0, 0, 0.1);
-  // border-top-right-radius: 40rpx;
-  // border-top-left-radius: 40rpx;
+  border-top-right-radius: 40rpx;
+  border-top-left-radius: 40rpx;
   .los-tabbar-item {
     width: -webkit-fill-available;
     display: flex;

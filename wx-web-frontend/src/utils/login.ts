@@ -8,6 +8,8 @@ export const wxLogin = () => {
         if (res.code) {
           //发起网络请求
           wxLoginApi({ code: res.code }).then((loginRes) => {
+            uni.setStorageSync('tokenData', { token: loginRes.token, session: loginRes.session })
+            uni.setStorageSync('userData', loginRes.userData)
             resolve(loginRes)
           }).catch(() => {
             reject(false)

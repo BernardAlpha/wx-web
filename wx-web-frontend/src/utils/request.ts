@@ -29,11 +29,21 @@ export const req = {
 
 const PollosRequest = (url: string, params?: object, method?: "GET" | "OPTIONS" | "HEAD" | "POST" | "PUT" | "DELETE" | "TRACE" | "CONNECT" | undefined) => {
   return new Promise((resolve) => {
+    let body = {
+      data: params,
+      token: '',
+      session: ''
+    };
+    const tokenData = uni.getStorageSync('tokenData')
+    if(tokenData) {
+      body.token = tokenData.token;
+      body.session = tokenData.session;
+    }
     // #ifdef H5
     uni.request({
       url: website.apiPrefix + url,
       method: method,
-      data: params,
+      data: body,
       success(res) {
         succFun(res, url, resolve);
       },
@@ -50,7 +60,7 @@ const PollosRequest = (url: string, params?: object, method?: "GET" | "OPTIONS" 
       },
       path: url, // 填入业务自定义路径和参数，根目录，就是 /
       method: method, // 按照自己的业务开发，选择对应的方法
-      data: params,
+      data: body,
       header: {
         'X-WX-SERVICE': website.wxService, // xxx中填入服务名称（微信云托管 - 服务管理 - 服务列表 - 服务名称）
       },
@@ -70,6 +80,12 @@ const succFun = (res: succFunRes, url: string, resolve: any) => {
   console.log(`%csuccFun-[${url}]\n`, 'color: green; font-weight: bold;', res)
   if (res.data.code === 'PLS200') {
     return resolve(res.data.data)
+  }else if (res.data.code.indexOf('PLS411') >= 0) {
+    uni.showModal({
+      title: '令牌已失效',
+      content: `[${res.data.code}]${res.data.errMsg}`
+    })
+    // uni.navigateTo({url: ''});
   }
   else {
     uni.showModal({
@@ -87,7 +103,8 @@ interface succFunRes {
 }
 
 const failFun = (err: any, url: string) => {
-  console.log(`%cfailFun-[${url}]\n`, 'color: red; font-weight: bold;', err)
+  console.log(`%cfailFun-[${url}]\n`, 'color: red; font-weight: bold;', err);
+  uni.hideLoading();
   uni.showModal({
     title: '温馨提示',
     content: JSON.stringify(err)
