@@ -1,6 +1,6 @@
 <template>
   <view class="nav-bar">
-    <view v-if="showTopBack" :style="`height:${topShadowHeight};`" class="top-back"></view>
+    <!-- <view v-if="showTopBack" :style="`height:${topShadowHeight};`" class="top-back"></view> -->
     <view class="nav-title" :style="titleStyle" :id="`${titleId}-title`">
       <view v-if="canBack" class="back-arrow" @click="goBack">{{ "<" }}</view>
       <view>{{ pageName }}</view>
@@ -30,6 +30,14 @@ const props = defineProps({
     type: String,
     default: '160rpx',
   },
+  background: {
+    type: String,
+    default: '',
+  },
+  isGaussian : {
+    type: Boolean,
+    default: true,
+  }
 });
 
 const titleStyle = ref({});
@@ -53,10 +61,22 @@ console.log("titleMarginTop", titleMarginTop);
 console.log("capsuleHeight", capsuleHeight);
 titleStyle.value = {
   "padding-top": titleMarginTop,
-  height: capsuleHeight,
+  "height": capsuleHeight,
   "line-height": capsuleHeight,
   "font-size": `calc(${capsuleHeight} / 1.1)`,
 };
+if(props.background) {
+  titleStyle.value = {
+    ...titleStyle.value,
+    "background": props.background
+  }
+}
+if(props.isGaussian) {
+  titleStyle.value = {
+    ...titleStyle.value,
+    "backdrop-filter": "blur(10rpx)"
+  }
+}
 
 const goBack = () => {
   console.log("goBack");
@@ -67,11 +87,10 @@ const goBack = () => {
 <style lang="scss" scoped>
 @import "@/styles/variables.scss";
 .nav-bar {
-  .top-back {
-    width: 100%;
-    background: linear-gradient(180deg, $themeColor, rgba(255, 255, 255, 0));
-    position: fixed;
-  }
+  // .top-back {
+  //   width: 100%;
+  //   position: fixed;
+  // }
   .nav-title {
     position: fixed;
     padding-top: $titleMarginTop;
@@ -81,8 +100,11 @@ const goBack = () => {
     color: #f7547d;
     text-align: center;
     font-size: calc($capsuleHeight / 1.1);
+    background: linear-gradient(180deg, $themeColor, rgba(255, 255, 255, 0));
+    backdrop-filter: blur(10rpx);
+    padding-bottom: 20rpx;
     .back-arrow {
-      margin-left: 36rpx;
+      margin-left: 28rpx;
       position: fixed;
       font-size: 80rpx;
     }

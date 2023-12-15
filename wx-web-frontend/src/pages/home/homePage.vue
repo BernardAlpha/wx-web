@@ -1,6 +1,6 @@
 <template>
   <view class="los-page my-page">
-    <nav-bar pageName="麦兰镇炸鸡店" :titleId="here.pageName" :canBack="false" topShadowHeight="360rpx"></nav-bar>
+    <nav-bar pageName="麦兰镇炸鸡店" :titleId="here.pageName" :canBack="false"></nav-bar>
     <scroll-view class="content" :show-scrollbar="false" :scroll-y="true">
       <invisible-module></invisible-module>
       <view class="module-box module-timing">

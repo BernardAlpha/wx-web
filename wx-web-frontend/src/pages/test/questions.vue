@@ -127,7 +127,7 @@
       class="cus-nav"
       pageName="信息技术"
       titleId="timeline"
-      :canBack="false"
+      background="linear-gradient(180deg, #1AAD19, rgba(255, 255, 255, 0))"
     ></nav-bar>
 
     <view class="popup" v-show="showPopup">
