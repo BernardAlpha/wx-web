@@ -123,12 +123,12 @@
       </view>
     </scroll-view>
 
-    <nav-bar
+    <navbar
       class="cus-nav"
       pageName="信息技术"
       titleId="timeline"
       background="linear-gradient(180deg, #1AAD19, rgba(255, 255, 255, 0))"
-    ></nav-bar>
+    ></navbar>
 
     <view class="popup" v-show="showPopup">
       <view @click="showPopup = false" style="height: 30%; width: 100%"></view>
@@ -189,7 +189,7 @@
 
 <script lang="ts" setup>
 import { ref, computed, watch } from "vue";
-import navBar from "@/pages/components/navBar.vue";
+import navbar from "@/pages/components/navbar.vue";
 import invisibleModule from "@/pages/components/invisibleModule.vue";
 // import questionList from "@/data/questionList.json";
 import { onLoad } from "@dcloudio/uni-app";

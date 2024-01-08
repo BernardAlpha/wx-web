@@ -1,8 +1,8 @@
 <template>
-  <view class="los-tabbar">
+  <view class="los-tabbar" :style="{backgroundColor: backgroundColor}">
     <view class="los-tabbar-item" v-for="(item, index) in list" @click="tabbarClick(index)">
       <view class="los-tabbar-item-icon">
-        <los-svg width="56rpx" height="56rpx" :src="website.staticPrefix + item.iconPath"
+        <los-svg :width="imgSideLength" :height="imgSideLength" :src="website.staticPrefix + item.iconPath"
           :color="selectedIndex === index ? 'yellowgreen' : '#000000'"></los-svg>
       </view>
       <view class="los-tabbar-item-name" :style="`color:${selectedIndex === index ? 'yellowgreen' : '#000000'};`">
@@ -21,8 +21,14 @@ const props = defineProps({
   selectedIndex: {
     type: Number,
     default: 0
+  },
+  backgroundColor: {
+    type: String,
+    default: 'rgba(255, 255, 255, 0.5)'
   }
 })
+
+const imgSideLength = ref('50rpx');
 
 const selectedIndex = ref(props.selectedIndex);
 
@@ -54,7 +60,7 @@ const tabbarClick = (index: number) => {
 <style lang="scss" scoped>
 .los-tabbar {
   width: 100%;
-  height: 170rpx;
+  height: 174rpx;
   display: flex;
   position: fixed;
   bottom: 0;

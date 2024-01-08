@@ -11,11 +11,11 @@ import { base64Encode } from '@/utils/common';
 const props = defineProps({
   width: {
     type: String,
-    default: ''
+    default: '-webkit-fill-available'
   },
   height: {
     type: String,
-    default: ''
+    default: '-webkit-fill-available'
   },
   src: {
     type: String,

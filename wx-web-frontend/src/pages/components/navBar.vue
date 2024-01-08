@@ -1,15 +1,19 @@
 <template>
-  <view class="nav-bar">
-    <!-- <view v-if="showTopBack" :style="`height:${topShadowHeight};`" class="top-back"></view> -->
-    <view class="nav-title" :style="titleStyle" :id="`${titleId}-title`">
-      <view v-if="canBack" class="back-arrow" @click="goBack">{{ "<" }}</view>
-      <view>{{ pageName }}</view>
+  <view class="navbar">
+    <view class="nav-area nav-normal" :style="titleStyle" :id="`${titleId}-nav`">
+      <view v-if="canBack && !isCustom" :style="backStyle" class="back-arrow" @click="goBack">
+        <los-svg :src="website.staticPrefix + backIconPath"></los-svg>
+      </view>
+      <view v-if="!isCustom">{{ pageName }}</view>
+      <slot></slot>
     </view>
   </view>
 </template>
 
 <script lang="ts" setup>
 import { ref } from "vue";
+import website from '@/config/website';
+import losSvg from './losSvg.vue';
 
 const props = defineProps({
   pageName: {
@@ -34,13 +38,25 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  isGaussian : {
+  isGaussian: {
     type: Boolean,
     default: true,
+  },
+  isCustom: {
+    type: Boolean,
+    default: false,
+  },
+  titleColor: {
+    type: String,
+    default: '',
   }
 });
 
+const backIconPath = ref('/public/img/common/run.svg');
+
 const titleStyle = ref({});
+const backStyle = ref({});
+
 let systemInfo = uni.getSystemInfoSync(); // 系统信息
 let capsuleInfo = {
   top: NaN,
@@ -77,6 +93,13 @@ if(props.isGaussian) {
     "backdrop-filter": "blur(10rpx)"
   }
 }
+if(props.titleColor) {
+  titleStyle.value = {
+    ...titleStyle.value,
+    "color": props.titleColor
+  }
+}
+
 
 const goBack = () => {
   console.log("goBack");
@@ -86,18 +109,18 @@ const goBack = () => {
 
 <style lang="scss" scoped>
 @import "@/styles/variables.scss";
-.nav-bar {
+.navbar {
   // .top-back {
   //   width: 100%;
   //   position: fixed;
   // }
-  .nav-title {
+  .nav-area {
     position: fixed;
     padding-top: $titleMarginTop;
     width: 100%;
     height: $capsuleHeight;
     line-height: $capsuleHeight;
-    color: #f7547d;
+    color: #000000;
     text-align: center;
     font-size: calc($capsuleHeight / 1.1);
     background: linear-gradient(180deg, $themeColor, rgba(255, 255, 255, 0));
@@ -106,7 +129,12 @@ const goBack = () => {
     .back-arrow {
       margin-left: 28rpx;
       position: fixed;
-      font-size: 80rpx;
+      // font-size: 80rpx;
+      font-family: 'Comic Sans MS';
+      height: calc($capsuleHeight - 8rpx);
+      width: calc($capsuleHeight - 8rpx);
+      transform: scaleX(-1);
+      // padding: 6rpx;
     }
   }
 }

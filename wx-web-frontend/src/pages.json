@@ -1,14 +1,7 @@
 {
   "pages": [
     {
-      "path": "pages/userCenter/me",
-      "style": {
-        "navigationBarTitleText": "",
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/home/homePage",
+      "path": "pages/gourd/gourdMark",
       "style": {
         "navigationBarTitleText": "",
         "navigationStyle": "custom"
@@ -22,7 +15,28 @@
       }
     },
     {
+      "path": "pages/home/homePage",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/userCenter/me",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
       "path": "pages/silkBag/silkBag",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/gourd/gourdSearch",
       "style": {
         "navigationBarTitleText": "",
         "navigationStyle": "custom"
