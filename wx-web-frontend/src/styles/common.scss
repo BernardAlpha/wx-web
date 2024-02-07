@@ -1,4 +1,9 @@
 @import "@/styles/variables.scss";
+
+// @import "highlight.js/scss/dark.scss";
+@import "highlight.js/styles/agate.css"; // md code styles
+// @import "highlight.js/styles/atom-one-dark.css"; // md code styles
+
 page {
   height: 100%;
   width: 100%;

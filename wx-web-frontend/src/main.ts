@@ -3,6 +3,8 @@ import App from "./App.vue";
 
 import website from '@/config/website'
 import '@/styles/common.scss'
+// import "highlight.js/styles/atom-one-dark.css"; // md code styles
+// import "highlight.js/styles/agate.css"; // md code styles
 
 uni.loadFontFace({
   global: true,

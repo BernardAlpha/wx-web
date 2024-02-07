@@ -26,7 +26,7 @@ const props = defineProps({
   },
   background: {
     type: String,
-    default: 'red'
+    default: 'cornflowerblue'
   },
   textAlign: {
     type: String,
