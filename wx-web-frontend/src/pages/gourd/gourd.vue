@@ -45,7 +45,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import tabbar from "@/pages/components/tabbar.vue";
-import navbar from '@/pages/components/navbar.vue';
+import navBar from '@/pages/components/navBar.vue';
 import { onShow } from "@dcloudio/uni-app";
 import website from '@/config/website'
 

@@ -1,10 +1,10 @@
 <template>
   <view class="los-page gourd-search-page">
-    <navbar :isCustom="true" :canBack="false">
+    <nav-bar :isCustom="true" :canBack="false">
       <view class="search" :style="searchStyle">
         <input class="search-input" :style="inputStyle" placeholder="search" />
       </view>
-    </navbar>
+    </nav-bar>
 
   </view>
 </template>
@@ -12,7 +12,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import tabbar from "@/pages/components/tabbar.vue";
-import navbar from '@/pages/components/navbar.vue';
+import navBar from '@/pages/components/navBar.vue';
 
 const searchStyle = ref({});
 const inputStyle = ref({});

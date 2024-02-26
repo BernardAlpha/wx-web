@@ -1,6 +1,6 @@
 <template>
   <view class="los-page gourd-mark-page">
-    <navbar pageName=""></navbar>
+    <nav-bar pageName="编辑"></nav-bar>
     <view class="content">
       <invisible-module></invisible-module>
       <view v-if="isEdit" class="edit-box words-box">
@@ -30,7 +30,7 @@
 <script lang="ts" setup>
 import { computed, nextTick, ref } from "vue";
 import { onLoad } from '@dcloudio/uni-app';
-import navbar from '@/pages/components/navBar.vue';
+import navBar from '@/pages/components/navBar.vue';
 import losButton from '@/pages/components/losButton.vue';
 import invisibleModule from "@/pages/components/invisibleModule.vue";
 import mpHtml from '@/pages/components/mp-html/mp-html.vue'
@@ -38,31 +38,11 @@ import { marked } from 'marked';
 import hljs from "highlight.js";
 // import hljs from 'highlight.js/lib/core';
 // import "highlight.js/styles/atom-one-dark.css";
-import javascript from 'highlight.js/lib/languages/javascript';
+// import javascript from 'highlight.js/lib/languages/javascript';
+// hljs.registerLanguage('javascript', javascript);
 
-hljs.registerLanguage('javascript', javascript);
-// hljs.initHighlightingOnLoad();
 onLoad(() => {
-  // marked.setOptions({
-  //   renderer: new marked.Renderer(),
-  //   highlight: function (code) {
-  //     console.log('!!!!!!!!!!!!!!!!!!!!!!!!!dawd', code);
-  //     return hljs.highlightAuto(code).value;
-  //   },
-  //   langPrefix: 'hljs language-', // highlight.js css expects a top-level 'hljs' class.
-  //   pedantic: false,
-  //   gfm: true,
-  //   breaks: true,
-  //   sanitize: false,
-  //   smartypants: false,
-  //   xhtml: false
-  // });
 });
-// hljs.configure({useBR: true});
-
-
-// console.log('dd', marked('I \nam using __markdown__.'));
-
 
 const content = ref('')
 const contentCursor = ref(0);
@@ -70,94 +50,70 @@ const textareaFocus = ref(false);
 const isEdit = ref(true)
 const mpHtmlContent = ref('');
 
-// const textareaInput = (e) => {
-//   console.log('e', e);
-// }
-
 const switchClick = () => {
   console.log('switchClick');
   if (isEdit.value) {
     mpHtmlContent.value = genMpHtmlContent();
-    // hljs.highlightAll();
   }
   isEdit.value = !isEdit.value;
 }
 
-
 const genMpHtmlContent = () => {
   let oriContent = content.value;
-  let cookedContent = '';
-  console.log('oriContent--oooo', oriContent);
-  console.log(oriContent.split('```'))
-  const codeSplit = oriContent.split('```');
-  for (let i in codeSplit) {
-    if (i % 2 === 1) {
-      const splitStrs = ['\n', '↵', '\r\n', '\r'];
-      console.log('codeSplit[i]', codeSplit[i]);
-      console.log('codeSplit[i]-l', codeSplit[i].length);
-      console.log('splitStrs[0]', splitStrs[0]);
-      let splitIndex = codeSplit[i].toLowerCase().indexOf(splitStrs[0]);
-      let splitStr = '';
-      console.log('splitIndexss', splitIndex);
-      for (let j in splitStrs) {
-        if (codeSplit[i].indexOf(splitStrs[j]) > 0 && codeSplit[i].indexOf(splitStrs[j]) < splitIndex) {
-          splitIndex = codeSplit[i].indexOf(splitStrs[j]);
-          splitStr = splitStrs[j];
-        }
-      }
-      console.log('splitIndex', splitIndex);
-      console.log('splitStr', splitStr);
-      const lang = codeSplit[i].slice(0, splitIndex) || '';
-      const code = codeSplit[i].slice(splitIndex + splitStr.length) || '';
-      console.log('lang', lang);
-      console.log('code', code);
-      const hljsCode = `<div class="hljs lang-${lang}" style="background: #1E1E1E; border-radius: 8rpx; padding: 8rpx;">` + hljs.highlight(code, { language: lang }).value + '</div>'
-      // const hljsCode = '<div style="background: #FFFFFF; border-radius: 12rpx; padding: 20rpx;">' + hljs.highlightAuto(code).value + '</div>'
-      codeSplit[i] = hljsCode;
-      // oriContent = oriContent.replace('```' + codeSplit[i] + '```', hljsCode)
-    } else {
-      const lines = codeSplit[i].split('\n')
-      for (let l in lines) {
-        const singleCode = lines[l].split('`')
-        for (let s in singleCode) {
-          if (s % 2 === 1) {
-            console.log('singleCode', singleCode[s]);
-            codeSplit[i] = codeSplit[i].replace('`' + singleCode[s] + '`', '<span style="color:#ff5c17; background:#F3F3F3; font-size:13px; margin: 0 2px 0 2px; padding: 1px 4px; border-radius:4px;">' + singleCode[s] + '</span>');
-          }
-        }
-        console.log('lines', lines);
-      }
-      // codeSplit[i] = codeSplit[i].replace(/↵|\r|\n|\r\n/g, '<br/>');
+  let htmlParse = marked.parse(oriContent);
+  const codeArr = getContentBetweenChars(htmlParse, '<code', '</code>')
+  console.log('codeArr', codeArr);
+  for (let i in codeArr) {
+    console.log('codeArr[i]', codeArr[i]);
+    let netCode = codeArr[i].slice(1);
+    let lang = 'bash';
+    let eleTag = 'div';
+    let eleClass = 'code-block';
+    if (netCode.indexOf(`class="language-`) >= 0) {
+      netCode = netCode.slice(netCode.indexOf('>') + 1);
+      lang = getContentBetweenChars(codeArr[i], `class="language-`, `">`)[0]
+    }else {
+      lang = 'singleword'; // 单个字符
+      eleTag = 'span';
+      eleClass = 'code-inline';
     }
-    cookedContent = cookedContent + codeSplit[i];
+    netCode = decodeHtmlEntities(netCode)
+    console.log('netCode\n', netCode);
+    console.log('lang\n', lang);
+    const hljsCode = hljs.highlight(netCode, { language: lang === 'singleword' ? 'bash' : lang }).value
+    console.log('hljsCode\n', hljsCode);
+    htmlParse = htmlParse.replace(`<code${codeArr[i]}</code>`, `<${eleTag} class="html-code ${eleClass}">${hljsCode}</${eleTag}>`)
   }
-  // console.log('cookedContent\n', cookedContent);
-  // console.log('marked.parse(oriContent)\n', marked.parse(cookedContent));
-  // console.log('marked.parse(oriContent, {breaks: true})\n', marked.parse(cookedContent, { breaks: true }));
-  // console.log('marked(oriContent, {breaks: true})\n', marked(cookedContent, { breaks: true }));
-  return marked.parse(cookedContent);
-  console.log('marked.parse(oriContent)', marked.parse(oriContent));
-  // return marked.parse(oriContent);
-  // return hljs.highlightAuto(marked.parse(oriContent)).value;
-
-  // return cookedContent;
-  // return marked.parse(oriContent, {
-  //   renderer: new marked.Renderer(),
-  //   highlight: function (src: '', options: {code, lang}) {
-  //     console.log('!!!!!!!!!!!!!!!!!!!!!!!!!dawd', code);
-  //     return hljs.highlightAuto(code).value;
-  //   },
-  //   langPrefix: 'hljs language-', // highlight.js css expects a top-level 'hljs' class.
-  //   pedantic: false,
-  //   gfm: true,
-  //   breaks: true,
-  //   sanitize: false,
-  //   smartypants: false,
-  //   xhtml: false
-  // });
-  // return oriContent;
-
+  console.log('cookedDomHtml\n', htmlParse);
+  return htmlParse;
 }
+
+const getContentBetweenChars = (inputString: string, startChar: string, endChar: string) => {
+  console.log('inputString\n', inputString);
+  const regexPattern = new RegExp(`${startChar}(.*?)${endChar}`, 'gs');
+  const matches = [];
+  let match;
+  while ((match = regexPattern.exec(inputString)) !== null) {
+    matches.push(match[1]);
+  }
+  return matches;
+}
+
+function decodeHtmlEntities(input) {
+  return input.replace(/&([^;]+);/g, function (match, entity) {
+    const specialEntities = {
+      'amp': '&',
+      'lt': '<',
+      'gt': '>',
+      'quot': '"',
+      'apos': "'",
+      '#39': "'",
+      // 可根据需要添加其他实体
+    };
+    return specialEntities[entity] || match;
+  });
+}
+
 
 /*
 hello, UniApp!
@@ -172,14 +128,14 @@ console.log('Hello World!');
 > 这是引用的文本
 `单行代码`
 `good`
-`fff` `www``dwa`
+`fff` `www` `dwa`
 
 ```javascript
 let a = 1
 const showKeyboard = (cursorPoint: number) => {
   console.log('cursor', cursorPoint);
 
-  if (cursorPoint) { // 光标移动到当前位置
+  if (cursorPoint && this || that && !alice && bob !== ciri) { // 光标移动到当前位置
     contentCursor.value = cursorPoint;
   }
   textareaFocus.value = true;
@@ -190,6 +146,11 @@ const showKeyboard = (cursorPoint: number) => {
 */
 
 const editFuncs = [
+  {
+    name: '换行符',
+    text: '<br/>',
+    forwardStep: 4
+  },
   {
     name: '一级标题',
     text: '\n# \n',
@@ -286,4 +247,6 @@ const showKeyboard = (cursorPoint: number) => {
   }
 
 }
+
+
 </style>

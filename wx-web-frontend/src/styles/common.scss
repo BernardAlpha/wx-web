@@ -1,8 +1,10 @@
 @import "@/styles/variables.scss";
 
 // @import "highlight.js/scss/dark.scss";
-@import "highlight.js/styles/agate.css"; // md code styles
+// @import "highlight.js/styles/agate.css"; // md code styles
 // @import "highlight.js/styles/atom-one-dark.css"; // md code styles
+@import "highlight.js/styles/vs2015.css"; // md code styles
+// @import "highlight.js/styles/nnfx-light"; // md code styles
 
 page {
   height: 100%;
@@ -38,7 +40,28 @@ page {
 
 .my-page-questions {
   .nav-title {
-    color: #480261!important;
-    font-size: 50rpx!important;
+    color: #480261 !important;
+    font-size: 50rpx !important;
   }
+}
+
+.html-code {
+  background-color: #1E1E1E;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  font-family: "JetBrains Mono", source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  overflow-y: auto;
+  color: #FFFFFF;
+}
+
+.code-block {
+  margin: 8rpx 0;
+  padding: 6rpx 8rpx;
+}
+
+.code-inline {
+  background-color: #f5f7fa;
+  margin: 0 6rpx;
+  padding: 2rpx 8rpx;
+  color: #303133;
 }

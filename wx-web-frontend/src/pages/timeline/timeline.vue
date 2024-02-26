@@ -29,13 +29,13 @@
       </view>
     </scroll-view>
 
-    <navbar pageName="我们的故事" titleId="timeline"></navbar>
+    <nav-bar pageName="我们的故事" titleId="timeline"></nav-bar>
   </view>
 </template>
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import navbar from "@/pages/components/navbar.vue";
+import navBar from "@/pages/components/navBar.vue";
 import invisibleModule from "@/pages/components/invisibleModule.vue";
 import timelineList from "@/data/timeline.json";
 

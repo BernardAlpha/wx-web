@@ -1,5 +1,5 @@
 <template>
-  <view class="navbar">
+  <view class="nav-bar">
     <view class="nav-area nav-normal" :style="titleStyle" :id="`${titleId}-nav`">
       <view v-if="canBack && !isCustom" :style="backStyle" class="back-arrow" @click="goBack">
         <los-svg :src="website.staticPrefix + backIconPath"></los-svg>
@@ -109,7 +109,7 @@ const goBack = () => {
 
 <style lang="scss" scoped>
 @import "@/styles/variables.scss";
-.navbar {
+.nav-bar {
   // .top-back {
   //   width: 100%;
   //   position: fixed;

@@ -1,6 +1,6 @@
 <template>
   <view class="los-page my-page">
-    <navbar pageName="麦兰镇炸鸡店" :titleId="here.pageName" :canBack="false" titleColor="#f7547d"></navbar>
+    <nav-bar pageName="麦兰镇炸鸡店" :titleId="here.pageName" :canBack="false" titleColor="#f7547d"></nav-bar>
     <scroll-view class="content" :show-scrollbar="false" :scroll-y="true">
       <invisible-module></invisible-module>
       <view class="module-box module-timing">
@@ -58,7 +58,7 @@ import { computed, onMounted, reactive, ref, watch } from "vue";
 import daysMatter from '@/data/daysMatter.json'
 import website from '@/config/website'
 import scheduleItem from '@/pages/components/scheduleItem.vue'
-import navbar from '@/pages/components/navbar.vue'
+import navBar from '@/pages/components/navBar.vue'
 import invisibleModule from "@/pages/components/invisibleModule.vue";
 import tabbar from "@/pages/components/tabbar.vue";
 import { onLoad, onShow } from "@dcloudio/uni-app";

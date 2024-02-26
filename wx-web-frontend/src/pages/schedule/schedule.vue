@@ -8,7 +8,7 @@
         <schedule-item :timeAxisShow="new Date().getDay() === (index + 1) % 7" :weekDay="index + 1" :timeNow="caculateTimeeeper()" @emitNotice="setNotice"></schedule-item>
       </view>
     </view>
-    <navbar pageName="菜单" titleId="menu"></navbar>
+    <nav-bar pageName="菜单" titleId="menu"></nav-bar>
   </view>
 </template>
 
@@ -17,7 +17,7 @@ import { onMounted, reactive } from "vue";
 import daysMatter from '@/data/daysMatter.json'
 import website from '@/config/website'
 import scheduleItem from '@/pages/components/scheduleItem.vue'
-import navbar from '@/pages/components/navbar.vue'
+import navBar from '@/pages/components/navBar.vue'
 import invisibleModule from "@/pages/components/invisibleModule.vue";
 // import { stringify } from "qs";
 const here = reactive({

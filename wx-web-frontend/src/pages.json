@@ -1,20 +1,6 @@
 {
   "pages": [
     {
-      "path": "pages/gourd/gourdMark",
-      "style": {
-        "navigationBarTitleText": "",
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/gourd/gourd",
-      "style": {
-        "navigationBarTitleText": "",
-        "navigationStyle": "custom"
-      }
-    },
-    {
       "path": "pages/home/homePage",
       "style": {
         "navigationBarTitleText": "",
@@ -37,6 +23,20 @@
     },
     {
       "path": "pages/gourd/gourdSearch",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/gourd/gourdMark",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/gourd/gourd",
       "style": {
         "navigationBarTitleText": "",
         "navigationStyle": "custom"
